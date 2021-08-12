@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/registry-mytools-frontend'),
+      dir: require('path').join(__dirname, './coverage/mytools-fe-registry-jwt'),
       subdir: '.',
       reporters: [
         { type: 'html' },

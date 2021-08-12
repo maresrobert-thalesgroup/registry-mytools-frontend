@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'registry-mytools-frontend'`, () => {
+  it(`should have as title 'mytools-fe-registry-jwt'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('registry-mytools-frontend');
+    expect(app.title).toEqual('mytools-fe-registry-jwt');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('registry-mytools-frontend app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('mytools-fe-registry-jwt app is running!');
   });
 });

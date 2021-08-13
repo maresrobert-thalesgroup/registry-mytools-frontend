@@ -19,6 +19,7 @@ export class RegisterformComponent implements OnInit {
   engTeams:string[]=["D","E","F"];
   ausTeams:string[]=["G","H","I"];
   editable:boolean=false;
+  emailInUse:boolean=false;
 
   constructor(private formBuilder:FormBuilder, private router:Router, private httpClient:HttpClient){
     this.registerForm = this.formBuilder.group({
@@ -57,6 +58,7 @@ export class RegisterformComponent implements OnInit {
 
   //submit function
   submitData(){
+    this.emailInUse = false;
 
     console.log(this.registerForm.value)
 
@@ -67,12 +69,15 @@ export class RegisterformComponent implements OnInit {
           console.log(data)
         },
         error=>{
-          console.log(error);
+          if(error.status === 500){
+            this.emailInUse = true;
+            console.log(error);
+          } else if(error.status === 200){
+            this.router.navigate(['/login']);
+            console.log(error);
+          }
         }
       )
-      //alert(`You have successfully registered, ${this.registerForm.value.firstname} ${this.registerForm.value.lastname}! `);
-      this.registerForm.reset(); //reset form value
-      this.router.navigate(['/login']);
     }
   }
 

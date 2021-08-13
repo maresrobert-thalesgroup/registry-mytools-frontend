@@ -1,0 +1,15 @@
+<mat-toolbar  class="custom-toolbar">
+    
+<a mat-button routerLink="templates">Templates</a>
+<a mat-button routerLink="bookadesk">Book a desk</a>
+    
+<div class="spacer"></div>
+    
+<button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon><span>{{email}}</span> 
+</button>
+<mat-menu #menu="matMenu">
+    <a mat-menu-item>My Profile</a>
+    <a mat-menu-item routerLink="logout">Sign out</a>
+</mat-menu>
+</mat-toolbar>

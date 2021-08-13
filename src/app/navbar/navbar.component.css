@@ -1,0 +1,11 @@
+.spacer{
+    flex: 1 1 auto;
+}
+
+.custom-toolbar {
+    background-color: #2596be;
+    padding: 0 5px;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+  }

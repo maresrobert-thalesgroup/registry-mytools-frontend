@@ -1,0 +1,23 @@
+.content
+{
+    max-width: 500px;
+    margin: auto;
+    background-color: #fff;
+    padding: 2% 2%;
+}
+
+button
+{
+    background-color: #000;
+    color: #fff;
+}
+
+button:hover
+{
+  color:#fff;
+}
+
+.error
+{
+    color: red;
+}

@@ -32,5 +32,6 @@ export class AuthenticationService {
 
   logout(){
     sessionStorage.removeItem("email");
+    sessionStorage.removeItem("token");
   }
 }

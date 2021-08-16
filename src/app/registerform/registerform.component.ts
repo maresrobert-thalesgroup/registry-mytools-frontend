@@ -67,13 +67,13 @@ export class RegisterformComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/v1/registration", this.registerForm.value).subscribe(
         data=>{
           console.log(data)
+          this.router.navigate(['/login']);
         },
         error=>{
           if(error.status === 500){
             this.emailInUse = true;
             console.log(error);
-          } else if(error.status === 200){
-            this.router.navigate(['/login']);
+          } else{
             console.log(error);
           }
         }

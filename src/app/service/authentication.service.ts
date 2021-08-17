@@ -20,6 +20,7 @@ export class AuthenticationService {
       sessionStorage.setItem("email",email);
       let tokenString = "Bearer "+ userData.jwtToken;
       sessionStorage.setItem("token",tokenString);
+      sessionStorage.setItem("role", userData.role[0].authority);
       return userData;
     }));
   }
@@ -33,5 +34,6 @@ export class AuthenticationService {
   logout(){
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
   }
 }

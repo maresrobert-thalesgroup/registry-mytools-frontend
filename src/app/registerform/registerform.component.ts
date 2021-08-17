@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-registerform',
@@ -21,7 +22,7 @@ export class RegisterformComponent implements OnInit {
   editable:boolean=false;
   emailInUse:boolean=false;
 
-  constructor(private formBuilder:FormBuilder, private router:Router, private httpClient:HttpClient){
+  constructor(private formBuilder:FormBuilder, private router:Router, private httpClient:HttpClient, private authenticationService: AuthenticationService){
     this.registerForm = this.formBuilder.group({
       "email": new FormControl(null,[Validators.required,Validators.email]),
       "firstName":new FormControl(null,[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
@@ -66,8 +67,13 @@ export class RegisterformComponent implements OnInit {
     {
       this.httpClient.post<any>("http://localhost:8080/api/v1/registration", this.registerForm.value).subscribe(
         data=>{
-          console.log(data)
-          this.router.navigate(['/login']);
+          console.log(data);
+          //console.log(this.registerForm.get(["email"])?.value);
+          this.authenticationService.authenticate(this.registerForm.get(["email"])?.value, this.registerForm.get(["password"])?.value).subscribe(
+            data=>{
+              this.router.navigate(['']);
+            }
+          );
         },
         error=>{
           if(error.status === 500){

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogin(){
-    (this.loginService.authenticate(this.email, this.password).subscribe(
+    this.loginService.authenticate(this.email, this.password).subscribe(
       data => {
         this.router.navigate([""])
         this.invalidLogin = false;
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.invalidLogin = true;
         this.error = error.message;
       }
-    ));
+    );
   }
 
 }

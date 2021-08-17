@@ -1,0 +1,19 @@
+*{
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#defimg{
+    padding: 27px;
+    vertical-align: middle;
+}
+
+.formdiv{
+    background-color: transparent;
+}
+
+
+.imgdiv{
+    display: inline-block;
+    border-right: 3px solid #fb8811;
+}

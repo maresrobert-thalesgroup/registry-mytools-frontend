@@ -48,6 +48,7 @@ export class RegisterformComponent implements OnInit {
       "team": new FormControl(null,[Validators.required]),
       "password":new FormControl(null,[Validators.required,Validators.minLength(6)]),
       "confirmpassword":new FormControl(null,[Validators.required]),
+      "hasOfficeIncomeTraining":new FormControl(false),
       "role":"USER_ROLE"
     },
   {
@@ -84,10 +85,11 @@ export class RegisterformComponent implements OnInit {
 
     if(this.registerForm.valid)
     {
+      let teamId = this.teams.filter(t => t.name === this.registerForm.get(['team'])?.value);
+      this.registerForm.controls['team'].setValue(teamId[0].id);
       this.httpClient.post<any>("http://localhost:8080/api/v1/registration", this.registerForm.value).subscribe(
         data=>{
           console.log(data);
-          //console.log(this.registerForm.get(["email"])?.value);
           this.authenticationService.authenticate(this.registerForm.get(["email"])?.value, this.registerForm.get(["password"])?.value).subscribe(
             data=>{
               this.router.navigate(['']);

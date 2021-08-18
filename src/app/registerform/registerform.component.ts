@@ -1,4 +1,6 @@
+import { transition } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,21 +8,36 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthenticationService } from '../service/authentication.service';
 
+
+export class GBU{
+  constructor(
+    public id:number,
+    public name: string
+  ){}
+}
+
+export class Team{
+  constructor(
+    public id:number,
+    public name: string,
+    public gbu_id: number
+  ){}
+}
+
 @Component({
   selector: 'app-registerform',
   templateUrl: './registerform.component.html',
   styleUrls: ['./registerform.component.css']
 })
+
 export class RegisterformComponent implements OnInit {
 
   registerForm:FormGroup; //form
-  gbus:string[]=["India","England","Australia"];
-  teams:string[]=[];
-  indTeams:string[]=["A","B","C"];
-  engTeams:string[]=["D","E","F"];
-  ausTeams:string[]=["G","H","I"];
+  gbus:GBU[]=[];
+  teams:Team[]=[];
   editable:boolean=false;
   emailInUse:boolean=false;
+  tmpteams:any;
 
   constructor(private formBuilder:FormBuilder, private router:Router, private httpClient:HttpClient, private authenticationService: AuthenticationService){
     this.registerForm = this.formBuilder.group({
@@ -39,6 +56,8 @@ export class RegisterformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getGBUS();
+    this.getTeams();
   }
 
   MustMatch(controlName:string,matchingControlName:string) {
@@ -87,25 +106,25 @@ export class RegisterformComponent implements OnInit {
     }
   }
 
-  get f (){return this.registerForm.controls}
-  
-  updateTeams(gbuName:any){
-    switch(gbuName){
-      case 'India':
-        this.teams=this.indTeams;
-        break;
-      case 'England':
-        this.teams=this.engTeams;
-        break;
-      case 'Australia':
-        this.teams=this.ausTeams;
-        break;
-      default:
-        this.teams=[]
-        break;
+  getGBUS(){
+    this.httpClient.get<any>("http://localhost:8080/api/v1/gbu").subscribe(data=>{
+      this.gbus=data;
+    })
 
-    }
+    
   }
 
+  getTeams(){
+    this.httpClient.get<any>("http://localhost:8080/api/v1/team").subscribe(data=>{
+      this.teams=data;
+    })
+  }
+
+  get f (){return this.registerForm.controls}
+  
+  updateTeams(gbuId:any){
+  this.getTeams()
+  this.tmpteams = this.teams.filter(e=> e.gbu_id == gbuId)
+  }
 
 }

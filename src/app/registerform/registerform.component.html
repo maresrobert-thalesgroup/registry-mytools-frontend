@@ -57,7 +57,7 @@
                         <select formControlName="gbu" class="form-control"
                             (change)="updateTeams($any($event.target).value)" placeholder="GBU">
                             <option value="" selected disabled>Select GBU</option>
-                            <option *ngFor="let gbu of gbus" [value]="gbu">{{gbu}}</option>
+                            <option *ngFor="let gbu of gbus " value="{{gbu.id}}">{{gbu.name}}</option>
                         </select>
                         <!-- display error start -->
                         <div *ngIf="f.gbu.invalid && (f.gbu.touched || f.gbu.dirty)">
@@ -71,7 +71,7 @@
                         <label>Team:</label>
                         <select formControlName="team" class="form-control">
                             <option value="" selected disabled>Select Team</option>
-                            <option *ngFor="let team of teams" [value]="team">{{team}}</option>
+                            <option *ngFor="let team of tmpteams">{{team.name}}</option>
                         </select>
                         <!-- display error start -->
                         <div *ngIf="f.team.invalid && (f.team.touched || f.team.dirty)">

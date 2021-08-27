@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
+import { TemplatesComponent } from './templates/templates.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     HomeComponent,
     LogoutComponent,
     RegisterformComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserprofileComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,

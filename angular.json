@@ -70,6 +70,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
+              "proxyConfig": "proxy.config.js",
               "browserTarget": "mytools-fe-registry-jwt:build:production"
             },
             "development": {

@@ -8,4 +8,6 @@
     color: white;
     font-weight: bold;
     font-style: italic;
+    position: sticky;
+    top: 0px;
   }

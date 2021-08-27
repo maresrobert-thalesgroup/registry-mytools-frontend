@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h1 style="padding: 25px;">Book a desk</h1>
+    <form>
+        <label>Name</label>
+        <input class="form-control" [(ngModel)]="name" name="name" disabled>
+        <br>
+        <label>Time Period</label>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                <input matStartDate placeholder="Start date" [(ngModel)]="startDate" name="startDate">
+                <input matEndDate placeholder="End date" [(ngModel)]="endDate" name="endDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <br>
+        <label>GBU</label>
+        <select class="form-control" disabled name="gbu" [(ngModel)]="gbu">
+            <option value="" selected disabled>Select GBU</option>
+            <option></option>
+        </select>
+        <br>
+        <label>Team</label>
+        <select class="form-control" disabled name="team" [(ngModel)]="team">
+            <option value="" selected disabled>Select Team</option>
+            <option></option>
+        </select>
+        <br>
+        <div *ngIf="role==='ROLE_USER'">
+            <label>Manager</label>
+            <select class="form-control" disabled name="manager" [(ngModel)]="manager">
+                <option value="" selected disabled>Select Manager</option>
+                <option></option>
+            </select>
+            <br>
+        </div>
+        <div *ngIf="role === 'ROLE_MANAGER'">
+            <label>Request For</label>
+            <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
+                [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
+                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+            <br>
+        </div>
+        <label>Access Floor</label>
+        <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
+            [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <br>
+        <label>Kit Needed</label>
+        <select class="form-control">
+            <option value="" selected disabled>Kit Needed?</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="mask only">Mask Only</option>
+        </select>
+        <br>
+        <input type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
+            value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
+            for="hasOfficeIncomeTraining">Has Office Income Training?</label>
+        <br>
+        <input type="submit" class="btn btn-warning btn-lg btn-block" name="subimt" value="submit" (click)="done()">
+    </form>
+</div>

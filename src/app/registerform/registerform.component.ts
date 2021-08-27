@@ -49,7 +49,7 @@ export class RegisterformComponent implements OnInit {
       "password":new FormControl(null,[Validators.required,Validators.minLength(6)]),
       "confirmpassword":new FormControl(null,[Validators.required]),
       "hasOfficeIncomeTraining":new FormControl(false),
-      "role":"USER_ROLE"
+      "role":"ROLE_USER"
     },
   {
     validators:this.MustMatch('password','confirmpassword')

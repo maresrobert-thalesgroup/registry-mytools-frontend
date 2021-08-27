@@ -17,7 +17,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
-import { TemplatesComponent } from './templates/templates.component';
+import { BookingComponent } from './booking/booking.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,7 @@ import { TemplatesComponent } from './templates/templates.component';
     RegisterformComponent,
     NavbarComponent,
     UserprofileComponent,
-    TemplatesComponent
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,11 @@ import { TemplatesComponent } from './templates/templates.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

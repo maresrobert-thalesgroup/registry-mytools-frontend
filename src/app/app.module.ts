@@ -23,6 +23,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BookingRequestComponent } from './booking-request/booking-request.component';
+import { CreateTemplateComponent } from './templates/create-template/create-template.component';
+import { UpdateTemplateComponent } from './templates/update-template/update-template.component';
+import { TemplatesListComponent } from './templates/templates-list/templates-list.component';
+import { TemplateService } from './service/template.service';
+import { DataTablesModule } from 'angular-datatables';
+import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,11 @@ import { BookingRequestComponent } from './booking-request/booking-request.compo
     NavbarComponent,
     UserprofileComponent,
     BookingComponent,
-    BookingRequestComponent
+    BookingRequestComponent,
+    CreateTemplateComponent,
+    UpdateTemplateComponent,
+    TemplatesListComponent,
+    NavbartemplatesComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +60,10 @@ import { BookingRequestComponent } from './booking-request/booking-request.compo
     NgMultiSelectDropDownModule.forRoot(),
     MatNativeDateModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DataTablesModule
   ],
-  providers: [],
+  providers: [TemplateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

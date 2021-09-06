@@ -1,0 +1,42 @@
+<div [hidden]="submitted" style="width: 400px;" class="container">
+  <h3>Create Template</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="gbu">GBU</label>
+      <input disabled type="text" class="form-control" id="gbu" required [(ngModel)]="userProfile.team.gbu.name" name="gbu">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Team</label>
+      <input disabled type="text" class="form-control" id="team" required [(ngModel)]="userProfile.team.name" name="team">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Manager</label>
+      <input disabled type="text" class="form-control" id="manager" name="manager">
+    </div>
+
+    <label>Access Floor</label>
+    <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
+        [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)">
+    </ng-multiselect-dropdown>
+    <br>
+
+    <label>Kit Needed</label>
+    <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired" >
+        <option value="" selected disabled>Kit Needed?</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="mask only">Mask Only</option>
+    </select>
+    <br>
+
+        <input type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
+            value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
+            for="hasOfficeIncomeTraining">Has Office Income Training?</label>
+        <br>
+        
+    <button class="btn btn-success">Validate</button>
+  </form>
+</div>

@@ -18,23 +18,14 @@
         </mat-form-field>
         <br>
         <label>GBU</label>
-        <select class="form-control" disabled name="gbu" [(ngModel)]="gbu">
-            <option value="" selected disabled>Select GBU</option>
-            <option></option>
-        </select>
+        <input class="form-control" [(ngModel)]="gbu" name="gbu" disabled>
         <br>
         <label>Team</label>
-        <select class="form-control" disabled name="team" [(ngModel)]="team">
-            <option value="" selected disabled>Select Team</option>
-            <option></option>
-        </select>
+        <input class="form-control" [(ngModel)]="team" name="team" disabled>
         <br>
         <div *ngIf="role==='ROLE_USER'">
             <label>Manager</label>
-            <select class="form-control" disabled name="manager" [(ngModel)]="manager">
-                <option value="" selected disabled>Select Manager</option>
-                <option></option>
-            </select>
+            <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
             <br>
         </div>
         <div *ngIf="role === 'ROLE_MANAGER'">
@@ -52,14 +43,14 @@
         </ng-multiselect-dropdown>
         <br>
         <label>Kit Needed</label>
-        <select class="form-control">
+        <select class="form-control" [(ngModel)]="kitNeeded" name="kitNeeded">
             <option value="" selected disabled>Kit Needed?</option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
             <option value="mask only">Mask Only</option>
         </select>
         <br>
-        <input type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
+        <input disabled type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
             value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
             for="hasOfficeIncomeTraining">Has Office Income Training?</label>
         <br>

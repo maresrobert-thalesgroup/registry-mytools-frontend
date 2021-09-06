@@ -22,6 +22,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { BookingRequestComponent } from './booking-request/booking-request.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     RegisterformComponent,
     NavbarComponent,
     UserprofileComponent,
-    BookingComponent
+    BookingComponent,
+    BookingRequestComponent
   ],
   imports: [
     BrowserModule,

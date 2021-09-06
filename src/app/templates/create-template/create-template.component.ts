@@ -49,7 +49,7 @@ export class CreateTemplateComponent implements OnInit {
   onSubmit() {
 
     this.template.requestById = this.userProfile.id;
-    this.template.requestForId = 10;
+    this.template.requestForId = this.userProfile.id;
 
 
     for (let i = 0; i < this.selectedItems.length; i++) {

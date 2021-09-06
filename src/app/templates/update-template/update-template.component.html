@@ -1,0 +1,33 @@
+<div style="width: 400px;" class="container">
+  <h3>Update Template</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="gbu">GBU</label>
+      <input type="text" class="form-control" id="gbu" required [(ngModel)]="template.gbu" name="gbu">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Team</label>
+      <input type="text" class="form-control" id="team" required [(ngModel)]="template.team" name="team">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Manager</label>
+      <input type="text" class="form-control" id="manager" required [(ngModel)]="template.manager" name="manager">
+    </div>
+    <div class="form-group">
+      <label for="name">Floor acces</label>
+      <input type="text" class="form-control" id="floorAcces" required [(ngModel)]="template.floorAcces" name="floorAcces">
+    </div>
+    <div class="form-group">
+      <input type="checkbox" id="kitRequired" required [(ngModel)]="template.kitRequired" name="kitRequired">
+      <label for="kitRequired">Kit Required</label>
+    </div>
+    <div class="form-group"> 
+      <input type="checkbox" id="officeIncomeTraining" required [(ngModel)]="template.officeIncomeTraining" name="officeIncomeTraining">
+      <label for="officeIncomeTraining">Office income training</label>
+    </div>
+
+    <button class="btn btn-success">Submit</button>
+  </form>
+</div>

@@ -4,9 +4,13 @@ import { BookingComponent } from './booking/booking.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.component';
 import { RegisterformComponent } from './registerform/registerform.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { CreateTemplateComponent } from './templates/create-template/create-template.component';
+import { TemplatesListComponent } from './templates/templates-list/templates-list.component';
 import { TemplatesComponent } from './templates/templates.component';
+import { UpdateTemplateComponent } from './templates/update-template/update-template.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 
 const routes: Routes = [
@@ -15,7 +19,15 @@ const routes: Routes = [
   {path:"logout", component: LogoutComponent, canActivate:[AuthGuardService]},
   {path:"signup", component: RegisterformComponent},
   {path:"userprofile", component: UserprofileComponent, canActivate:[AuthGuardService]},
-  {path:"bookadesk", component: BookingComponent, canActivate:[AuthGuardService]}
+  {path:"bookadesk", component: BookingComponent, canActivate:[AuthGuardService]},
+  {path:"navbartemplates",component:NavbartemplatesComponent,
+  children: [
+    {path:"addtemplate",component:CreateTemplateComponent,canActivate:[AuthGuardService]},
+    {path:"templateslist",component:TemplatesListComponent, canActivate:[AuthGuardService]},
+    {path:"updatetemplate/:id",component:UpdateTemplateComponent, canActivate:[AuthGuardService]},
+    {path: '', redirectTo: 'addtemplate', pathMatch: 'full'}, 
+  ], 
+  canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

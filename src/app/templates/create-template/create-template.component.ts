@@ -23,11 +23,19 @@ export class CreateTemplateComponent implements OnInit {
   selectedItems: any;
   floorAcces: number[] = [];
   selelectedKitRequired = "";
-  hasOfficeIncomeTraining: Boolean = true;
+  hasOfficeIncomeTraining: Boolean = false;
   dropdownList = [{ item_id: 1, item_text: '6' },
   { item_id: 2, item_text: '7' },
   { item_id: 3, item_text: '8' },];
-  dropdownSettings: IDropdownSettings = {};
+  dropdownSettings: IDropdownSettings = {}; 
+  role: String = sessionStorage.getItem("role") + "";
+  manager: String = "";
+  dropdownSettingsEmployees: IDropdownSettings = {};
+  employeeDropdownList: any = [];
+  selectedEmployees: any = [];
+  personalTemplate:boolean=true;
+  teamTemplate:boolean=false;
+  
 
   constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient) { }
 
@@ -44,18 +52,28 @@ export class CreateTemplateComponent implements OnInit {
       itemsShowLimit: 10,
       allowSearchFilter: true
     };
+
+    this.dropdownSettingsEmployees = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
   }
 
   onSubmit() {
 
     this.template.requestById = this.userProfile.id;
-    this.template.requestForId = 10;
+    this.template.requestForId = this.role === "ROLE_USER" ? this.userProfile.id : this.selectedEmployees[0].item_id;
 
 
     for (let i = 0; i < this.selectedItems.length; i++) {
       this.floorAcces[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
-
     }
+    
     console.log(this.floorAcces);
     this.template.floorAccess = this.floorAcces;
     this.template.kitRequired = this.selelectedKitRequired;
@@ -87,7 +105,21 @@ export class CreateTemplateComponent implements OnInit {
     this.email = { "email": sessionStorage.getItem('email') }
     this.httpClient.post("http://localhost:8080/api/v1/profile", this.email, this.httpOptions).subscribe(data => {
       this.userProfile = data;
+      this.hasOfficeIncomeTraining = this.userProfile.hasOfficeIncomeTraining;
       console.log(this.userProfile);
+      if (this.role === 'ROLE_USER') {
+        this.manager = this.userProfile.manager.email ? this.userProfile.manager.email : "No manager to display";
+      } else if (this.role === 'ROLE_MANAGER') {
+        this.httpClient.get<any>("http://localhost:8080/api/v1/profile/" + this.userProfile.team.id, this.httpOptions).subscribe(data => {
+          let tempData: any = data;
+          let tempList: any = [];
+          for (var e of tempData) {
+            tempList.push({ item_id: e.id, item_text: e.email });
+          }
+          this.employeeDropdownList = tempList;
+          console.log(this.employeeDropdownList);
+        })
+      }
     })
   }
 
@@ -99,5 +131,14 @@ export class CreateTemplateComponent implements OnInit {
 
   }
 
+  chnageToPersonalTemplate(){
+    this.personalTemplate=true;
+    this.teamTemplate=false;
+  }
+
+  chnageToTeamTemplate(){
+    this.personalTemplate=false;
+    this.teamTemplate=true;
+  }
 
 }

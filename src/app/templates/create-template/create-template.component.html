@@ -1,3 +1,8 @@
+<div *ngIf="role === 'ROLE_MANAGER'">
+<button class="btn"(click)="chnageToPersonalTemplate()">Personal template</button>
+<button class="btn" (click)="chnageToTeamTemplate()">Team template</button>
+</div>
+
 <div [hidden]="submitted" style="width: 400px;" class="container">
   <h3>Create Template</h3>
   <form (ngSubmit)="onSubmit()">
@@ -11,10 +16,26 @@
       <input disabled type="text" class="form-control" id="team" required [(ngModel)]="userProfile.team.name" name="team">
     </div>
 
-    <div class="form-group">
-      <label for="name">Manager</label>
-      <input disabled type="text" class="form-control" id="manager" name="manager">
-    </div>
+    <div *ngIf="role==='ROLE_USER'">
+      <label>Manager</label>
+      <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
+      <br>
+  </div>
+
+  <div *ngIf="role==='ROLE_MANAGER' && personalTemplate===true">
+    <label>Manager</label>
+    <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
+    <br>
+</div>
+  
+  <div *ngIf="role === 'ROLE_MANAGER' && teamTemplate===true">
+      <label>Request For</label>
+      <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
+          [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
+          (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown>
+      <br>
+  </div>
 
     <label>Access Floor</label>
     <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
@@ -37,6 +58,7 @@
             for="hasOfficeIncomeTraining">Has Office Income Training?</label>
         <br>
         
-    <button class="btn btn-success">Validate</button>
+    <button class="btn btn-warning">Validate</button>
+
   </form>
 </div>

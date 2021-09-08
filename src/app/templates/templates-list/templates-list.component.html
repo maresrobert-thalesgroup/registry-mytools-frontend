@@ -3,6 +3,7 @@
     <div class="panel-heading">
       <h2>Template List</h2>
     </div>
+    <div *ngIf="filtersLoaded">
     <div class="panel-body">
       <table id="datable-example" class="display" cellspacing="10" width="100%">
 
@@ -12,30 +13,30 @@
             <th >Request for</th>
             <th >GBU</th>
             <th >Team</th>
-            <th >Manager</th>
             <th >Floor acces</th>
             <th>Kit Required</th>
             <th> Office income training</th>
             <th> Action</th>
           </tr>
         </thead>
-        <tbody>
-       <tr *ngFor="let template of templates ">  
+
+        <tbody>     
+
+       <tr *ngFor="let template of templates">  
             <td>{{template.requestBy}}</td>
             <td>{{template.requestFor}}</td>
             <td>{{template.gbu}}</td>
             <td>{{template.team}}</td>
-            <td>{{template.manager}}</td>
-            <td>{{template.floorAcces}}</td>
+            <td>{{template.floorAccess}}</td>
             <td>{{template.kitRequired}}</td>
             <td>{{template.officeIncomeTraining}}</td>
          
               <td><button  (click)="deleteTemplate(template.id)" class="btn btn-danger">Delete</button>
                 <button  (click)="updateTemplate(template.id)" class="btn btn-success" style="margin-left: 10px">Edit details</button>
               </td>
-
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
   </div>

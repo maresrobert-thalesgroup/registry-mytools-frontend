@@ -13,6 +13,8 @@ export class TemplatesListComponent implements OnInit {
 
   //templates:Observable<ApiResponse>;
   templates:any;
+  floors: String[] = [];
+  filtersLoaded: Promise<boolean> = Promise.resolve(false);;
 
   constructor(private templateService:TemplateService, private router:Router) { }
 
@@ -20,6 +22,12 @@ export class TemplatesListComponent implements OnInit {
     this.templateService.getTempleates().subscribe(
       data=>{console.log(data);
       this.templates=data;
+      for (let i = 0; i < this.templates.length; i++) {
+        this.templates[i].floorAccess = this.templates[i].floorAccess as String[]; //use i instead of 0
+      }
+      this.filtersLoaded = Promise.resolve(true);
+
+
   },
   error=>  console.error(error));
     $(function(){

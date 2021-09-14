@@ -3,31 +3,50 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="gbu">GBU</label>
-      <input type="text" class="form-control" id="gbu" required [(ngModel)]="template.gbu" name="gbu">
+      <input disabled type="text" class="form-control" id="gbu" required [(ngModel)]="gbu" name="gbu">
     </div>
 
     <div class="form-group">
       <label for="name">Team</label>
-      <input type="text" class="form-control" id="team" required [(ngModel)]="template.team" name="team">
+      <input disabled type="text" class="form-control" id="team" required [(ngModel)]="team" name="team">
     </div>
 
-    <div class="form-group">
-      <label for="name">Manager</label>
-      <input type="text" class="form-control" id="manager" required [(ngModel)]="template.manager" name="manager">
-    </div>
-    <div class="form-group">
-      <label for="name">Floor acces</label>
-      <input type="text" class="form-control" id="floorAcces" required [(ngModel)]="template.floorAcces" name="floorAcces">
-    </div>
-    <div class="form-group">
-      <input type="checkbox" id="kitRequired" required [(ngModel)]="template.kitRequired" name="kitRequired">
-      <label for="kitRequired">Kit Required</label>
-    </div>
-    <div class="form-group"> 
-      <input type="checkbox" id="officeIncomeTraining" required [(ngModel)]="template.officeIncomeTraining" name="officeIncomeTraining">
-      <label for="officeIncomeTraining">Office income training</label>
-    </div>
+    <div *ngIf="role==='ROLE_USER'">
+      <label>Manager</label>
+      <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
+      <br>
+  </div>
+  
+  <div *ngIf="role === 'ROLE_MANAGER'">
+      <label>Request For</label>
+      <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
+          [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
+          (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown>
+      <br>
+  </div>
 
-    <button class="btn btn-success">Submit</button>
+    <label>Access Floor</label>
+    <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
+        [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)">
+    </ng-multiselect-dropdown>
+    <br>
+
+    <label>Kit Needed</label>
+    <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired" >
+        <option value="" selected disabled>Kit Needed?</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="mask only">Mask Only</option>
+    </select>
+    <br>
+
+        <input disabled type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
+            value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
+            for="hasOfficeIncomeTraining">Has Office Income Training?</label>
+        <br>
+
+    <button class="btn btn-warning">Submit</button>
   </form>
 </div>

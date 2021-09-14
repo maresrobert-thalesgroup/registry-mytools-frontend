@@ -34,12 +34,16 @@ export class TemplateService {
     return this.http.get(this.baseUrl + "/" + id,this.httpOptions);
   }
 
+  getTemplatesByUserId(id: number){
+    return this.http.get(this.baseUrl+"/list" + "/" + id,this.httpOptions);
+  }
+
   createTemplate(template: TemplateRequest){
     return this.http.post(this.baseUrl, template,this.httpOptions);
   }
 
-  updateTemplate(id: number, template: Template){
-    return this.http.put(this.baseUrl + "/" + template.id,template,this.httpOptions);
+  updateTemplate(id: number, template: TemplateRequest){
+    return this.http.put(this.baseUrl + "/" + id,template,this.httpOptions);
   }
 
   deleteTemplate(id: number) {

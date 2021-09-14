@@ -1,8 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { ApiResponse } from 'src/app/model/api.response';
 import { Template } from 'src/app/model/template.model';
+import { TemplateRequest } from 'src/app/model/template_request.model';
 import { TemplateService } from 'src/app/service/template.service';
 
 @Component({
@@ -14,30 +17,136 @@ export class UpdateTemplateComponent implements OnInit {
   id:number;
   template:any;
   apiResponse:ApiResponse;
+  gbu:any;
+  team:any;
+  teamId:any;
+  role: String = sessionStorage.getItem("role") + "";
+  manager:any;
+  templateRequest: TemplateRequest= new TemplateRequest();
+  floorAcces: number[] = [];
+  dropdownList = [{ item_id: 1, item_text: '6' },
+  { item_id: 2, item_text: '7' },
+  { item_id: 3, item_text: '8' },];
+  dropdownSettings: IDropdownSettings = {}; 
+  selectedItems: any;
+  selelectedKitRequired = "";
+  hasOfficeIncomeTraining: Boolean = false;
+  dropdownSettingsEmployees: IDropdownSettings = {};
+  employeeDropdownList: any = [];
+  selectedEmployees: any;
+  httpOptions:any;
+  
 
 
-
-  constructor(private router:Router, private templateService:TemplateService,
-    private route:ActivatedRoute) { }
+  constructor(private router:Router, private templateService:TemplateService,private route:ActivatedRoute, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.template=new Template();
+
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
+
+    this.dropdownSettingsEmployees = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
+
+    this.getTemplate();
+
+  }
+  
+
+  getTemplate(){
+    console.log(sessionStorage.getItem('token'));
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage.getItem('token') + "",
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+      },
+      )
+    };
+
     this.id=this.route.snapshot.params['id'];
+
     this.templateService.getTemplateById(this.id).subscribe(
       data=>{console.log(data)
       this.template=data;
+      this.gbu= this.template.requestBy.team.gbu.name;
+      this.team = this.template.requestBy.team.name;
+      this.teamId = this.template.requestBy.team.id;
+      this.selectedItems=this.template.floorAccess;
+
+
+      this.hasOfficeIncomeTraining=this.template.requestBy.hasOfficeIncomeTraining;
+      this.selelectedKitRequired=this.template.kitRequired;
+
+      console.log(this.teamId);
+      console.log(this.role);
+
+      if (this.role === 'ROLE_USER') {
+        this.manager = "No manager to display";
+      } else if (this.role === 'ROLE_MANAGER') {
+        this.httpClient.get<any>("http://localhost:8080/api/v1/profile/" + this.template.requestBy.team.id, this.httpOptions).subscribe(data => {
+          let tempData: any = data;
+          let tempList: any = [];
+          for (var e of tempData) {
+            tempList.push({ item_id: e.id, item_text: e.email });
+          }
+          this.employeeDropdownList = tempList;
+        })
+      }
+      
+      this.selectedEmployees = { item_id: 1, item_text: this.template.requestFor.email};
+      console.log(this.selectedEmployees);
+
     },
     error=>console.log(error));
   }
  
   onSubmit(){
-    this.templateService.updateTemplate(this.id,this.template).subscribe(
-      data=>console.log(data),error=>console.error());
-      this.template=new Template();
-      this.router.navigate(['/navbartemplates/templateslist']);
 
+    this.templateRequest.requestById = this.template.requestBy.id;
+    this.templateRequest.requestForId = this.role === "ROLE_USER" ? this.template.requestFor.id : this.selectedEmployees[0].item_id;
+
+    console.log(this.selectedItems);
+
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      this.floorAcces[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
+    }
+
+    this.templateRequest.floorAccess = this.floorAcces;
+    this.templateRequest.kitRequired = this.selelectedKitRequired;
+   
+    console.log(this.templateRequest);
+    console.log(this.template.id);
+    this.templateService.updateTemplate(this.template.id,this.templateRequest).subscribe(
+      data=>console.log(data),error=>console.error());
+      this.router.navigate(['/navbartemplates/templateslist']);
+      //console.log(this.template);
   }
   
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+
+  }
 
 
 }

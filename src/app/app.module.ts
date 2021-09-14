@@ -33,6 +33,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeamManagerComponent } from './team-manager/team-manager.component';
 import {MatSelectModule} from '@angular/material/select';
+import { AdministrationComponent } from './administration/administration.component';
+import { UpdatebookingComponent } from './updatebooking/updatebooking.component';
+import { AddbookingComponent } from './addbooking/addbooking.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import {MatSelectModule} from '@angular/material/select';
     TemplatesListComponent,
     NavbartemplatesComponent,
     DashboardComponent,
-    TeamManagerComponent
+    TeamManagerComponent,
+    AdministrationComponent,
+    UpdatebookingComponent,
+    AddbookingComponent
   ],
   imports: [
     BrowserModule,

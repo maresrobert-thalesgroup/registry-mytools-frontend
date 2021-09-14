@@ -21,6 +21,9 @@
     <button *ngIf="role === 'ROLE_MANAGER'" mat-button routerLink="/bookreq">
         <mat-icon>thumbs_up_down</mat-icon> Booking Requests
     </button>
+    <button *ngIf="role === 'ROLE_ADMIN'" routerLink="/administration" mat-button>
+        <mat-icon> vpn_key</mat-icon> Administration
+    </button>
 
     <div class="spacer"></div>
 

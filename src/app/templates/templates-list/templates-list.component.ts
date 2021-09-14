@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/model/api.response';
 import { TemplateService } from 'src/app/service/template.service';
@@ -13,13 +13,23 @@ export class TemplatesListComponent implements OnInit {
 
   //templates:Observable<ApiResponse>;
   templates:any;
+  floors: String[] = [];
+  filtersLoaded: Promise<boolean> = Promise.resolve(false);
+  userId:number;
 
-  constructor(private templateService:TemplateService, private router:Router) { }
+  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.templateService.getTempleates().subscribe(
+    this.userId= Number(sessionStorage.getItem("id"));
+    this.templateService.getTemplatesByUserId(this.userId).subscribe(
       data=>{console.log(data);
       this.templates=data;
+      for (let i = 0; i < this.templates.length; i++) {
+        this.templates[i].floorAccess = this.templates[i].floorAccess as String[]; //use i instead of 0
+      }
+      this.filtersLoaded = Promise.resolve(true);
+
+
   },
   error=>  console.error(error));
     $(function(){
@@ -31,7 +41,7 @@ export class TemplatesListComponent implements OnInit {
     console.log(id);
     this.templateService.deleteTemplate(id).subscribe(
       data=>{console.log(data);
-        this.templateService.getTempleates().subscribe(
+        this.templateService.getTemplatesByUserId(this.userId).subscribe(
           data=>{console.log(data);
           this.templates=data;});
   },

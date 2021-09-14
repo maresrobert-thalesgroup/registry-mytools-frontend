@@ -21,6 +21,7 @@
             <td>{{booking.endDate.split("T")[0]}}</td>
             <td>
               <button class="btn btn-info" (click)="updateBooking(booking.id,1)">Approve</button>
+              &nbsp;
               <button class="btn btn-warning" (click)="updateBooking(booking.id,0)">Deny</button>
             </td>
           </tr>

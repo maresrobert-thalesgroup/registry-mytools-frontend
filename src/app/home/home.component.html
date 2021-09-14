@@ -1,25 +1,89 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <h1 class="text-center" style="padding: 25px;">Dashboard</h1>
+  <h1 class="text-center" style="padding: 25px;">My Reservations</h1>
+  <div class="text-center">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter</mat-label>
+      <mat-select [(value)]="selected" (selectionChange)='onOptionsSelectedEvent($event.value)'>
+        <mat-option>None</mat-option>
+        <mat-option value="All">All</mat-option>
+        <mat-option value="Accepted">Accepted</mat-option>
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="Rejected">Rejected</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <label>&nbsp;&nbsp;</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Sort</mat-label>
+      <mat-select [(value)]="selectedSort" (selectionChange)='onSortOptionSelected($event.value)'>
+        <mat-option>None</mat-option>
+        <mat-option value="Oldest to Newest">Oldest to Newest</mat-option>
+        <mat-option value="Newest to Oldest">Newest to Oldest</mat-option>
+        <mat-option value="Ascending - Booked Time">Ascending - Booked Time</mat-option>
+        <mat-option value="Descending - Booked Time">Descending - Booked Time</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br/>
+  <mat-expansion-panel hideToggle [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        My Upcoming Bookings
+      </mat-panel-title>
+      <mat-panel-description>
+        Click to see your upcoming bookings
+      </mat-panel-description>
+    </mat-expansion-panel-header>
     <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Created For</th>
-            <th scope="col">From</th>
-            <th scope="col">Until</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let booking of bookingList" [style.background] = getColorStatus(booking.status)>
-            <td>{{booking.id}}</td>
-            <td>{{booking.request_by.email}}</td>
-            <td>{{booking.request_for.email}}</td>
-            <td>{{booking.startDate.split("T")[0]}}</td>
-            <td>{{booking.endDate.split("T")[0]}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created For</th>
+          <th scope="col">From</th>
+          <th scope="col">Until</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of printedListUpcoming" [style.background]=getColorStatus(booking.status)>
+          <td>{{booking.id}}</td>
+          <td>{{booking.request_by.email}}</td>
+          <td>{{booking.request_for.email}}</td>
+          <td>{{booking.startDate.split("T")[0]}}</td>
+          <td>{{booking.endDate.split("T")[0]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-expansion-panel>
+  <br/>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        My Past Bookings
+      </mat-panel-title>
+      <mat-panel-description>
+        Click to see your past bookings!
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created For</th>
+          <th scope="col">From</th>
+          <th scope="col">Until</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of printedListPast" [style.background]=getColorStatus(booking.status)>
+          <td>{{booking.id}}</td>
+          <td>{{booking.request_by.email}}</td>
+          <td>{{booking.request_for.email}}</td>
+          <td>{{booking.startDate.split("T")[0]}}</td>
+          <td>{{booking.endDate.split("T")[0]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-expansion-panel>
 </div>
-

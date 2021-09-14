@@ -29,6 +29,10 @@ import { TemplatesListComponent } from './templates/templates-list/templates-lis
 import { TemplateService } from './service/template.service';
 import { DataTablesModule } from 'angular-datatables';
 import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TeamManagerComponent } from './team-manager/team-manager.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,9 @@ import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.comp
     CreateTemplateComponent,
     UpdateTemplateComponent,
     TemplatesListComponent,
-    NavbartemplatesComponent
+    NavbartemplatesComponent,
+    DashboardComponent,
+    TeamManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,9 @@ import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.comp
     MatNativeDateModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    DataTablesModule
+    DataTablesModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   providers: [TemplateService],
   bootstrap: [AppComponent]

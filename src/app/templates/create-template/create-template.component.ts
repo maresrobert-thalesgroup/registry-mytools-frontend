@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppUser } from 'src/app/model/app_user.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { TemplateRequest } from 'src/app/model/template_request.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-create-template',
@@ -67,7 +68,7 @@ export class CreateTemplateComponent implements OnInit {
   onSubmit() {
 
     this.template.requestById = this.userProfile.id;
-    this.template.requestForId = this.role === "ROLE_USER" ? this.userProfile.id : this.selectedEmployees[0].item_id;
+    this.template.requestForId = (this.role === "ROLE_USER" || this.teamTemplate===false) ? this.userProfile.id : this.selectedEmployees[0].item_id;
 
 
     for (let i = 0; i < this.selectedItems.length; i++) {
@@ -120,6 +121,7 @@ export class CreateTemplateComponent implements OnInit {
           console.log(this.employeeDropdownList);
         })
       }
+      sessionStorage.setItem("id",this.userProfile.id);
     })
   }
 

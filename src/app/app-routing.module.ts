@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddbookingComponent } from './addbooking/addbooking.component';
+import { AdministrationComponent } from './administration/administration.component';
 import { BookingRequestComponent } from './booking-request/booking-request.component';
 import { BookingComponent } from './booking/booking.component';
 import { HomeComponent } from './home/home.component';
@@ -12,6 +14,7 @@ import { CreateTemplateComponent } from './templates/create-template/create-temp
 import { TemplatesListComponent } from './templates/templates-list/templates-list.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { UpdateTemplateComponent } from './templates/update-template/update-template.component';
+import { UpdatebookingComponent } from './updatebooking/updatebooking.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 
 const routes: Routes = [
@@ -29,7 +32,10 @@ const routes: Routes = [
     {path:"updatetemplate/:id",component:UpdateTemplateComponent, canActivate:[AuthGuardService]},
     {path: '', redirectTo: 'addtemplate', pathMatch: 'full'}, 
   ], 
-  canActivate:[AuthGuardService]}
+  canActivate:[AuthGuardService]},
+  {path:"administration",component:AdministrationComponent, canActivate:[AuthGuardService]},
+  {path:"updatebooking/:id",component:UpdatebookingComponent, canActivate:[AuthGuardService]},
+  {path:"addbooking",component:AddbookingComponent, canActivate:[AuthGuardService]}
 ];
 
 @NgModule({

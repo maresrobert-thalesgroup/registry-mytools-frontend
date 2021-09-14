@@ -29,6 +29,9 @@ import { TemplatesListComponent } from './templates/templates-list/templates-lis
 import { TemplateService } from './service/template.service';
 import { DataTablesModule } from 'angular-datatables';
 import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.component';
+import { AdministrationComponent } from './administration/administration.component';
+import { UpdatebookingComponent } from './updatebooking/updatebooking.component';
+import { AddbookingComponent } from './addbooking/addbooking.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.comp
     CreateTemplateComponent,
     UpdateTemplateComponent,
     TemplatesListComponent,
-    NavbartemplatesComponent
+    NavbartemplatesComponent,
+    AdministrationComponent,
+    UpdatebookingComponent,
+    AddbookingComponent
   ],
   imports: [
     BrowserModule,

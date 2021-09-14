@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<div style="width: 400px;" class="container">
+    <h1 style="margin-top: 25px;" >Create booking</h1>
+    <form (ngSubmit)="onSubmit()"> 
+        <label>Request by</label>
+        <select class="form-control" [(ngModel)]="selectedRequestBy" name="selectedRequestBy" (ngModelChange)="updateRequestFor($event)">
+            <option value="" selected disabled>Request by</option>
+            <option *ngFor="let requestBy of requestByList" [ngValue]="requestBy">{{requestBy.email}}</option>
+        </select>
+        <br>
+
+        <label>Request for</label>
+        <select class="form-control" [(ngModel)]="selectedRequestFor" name="selectedRequestFor">
+            <option value="" selected disabled>Request for</option>
+            <option *ngFor="let requestFor of requestForList" [ngValue]="requestFor">{{requestFor.email}}</option>
+        </select>
+        <br>
+
+        <label>Time Period</label>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                <input matStartDate placeholder="Start date"  [(ngModel)]="startDate" name="startDate">
+                <input matEndDate placeholder="End date"  [(ngModel)]="endDate" name="endDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <br>
+
+        <label>Access Floor</label>
+        <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
+            [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <br>
+
+        <label>Kit Needed</label>
+        <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired">
+            <option value="" selected disabled>Kit Needed?</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="mask only">Mask Only</option>
+        </select>
+        <br>
+
+        <label>Status</label>
+        <select class="form-control" [(ngModel)]="status" name="kitNeeded">
+            <option value="" selected disabled>Status</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+
+        <button class="btn btn-warning">Submit</button>
+    </form>
+</div>

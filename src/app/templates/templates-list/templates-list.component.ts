@@ -29,6 +29,10 @@ export class TemplatesListComponent implements OnInit {
       }
       this.filtersLoaded = Promise.resolve(true);
 
+      this.templateService.getTemplateById(18).subscribe( 
+        data=>{console.log(data);}
+      )
+
 
   },
   error=>  console.error(error));
@@ -50,6 +54,10 @@ export class TemplatesListComponent implements OnInit {
 
   updateTemplate(id:number){
     this.router.navigate(['/navbartemplates/updatetemplate',id]);
+  }
+
+  applyTemplate(id:number){
+    this.router.navigate(['/bookadesk',{templateId:id}]);
   }
   
 

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -35,13 +36,23 @@ export class UpdateTemplateComponent implements OnInit {
   employeeDropdownList: any = [];
   selectedEmployees: any;
   httpOptions:any;
+  form:FormGroup;
   
 
 
-  constructor(private router:Router, private templateService:TemplateService,private route:ActivatedRoute, private httpClient: HttpClient) { }
+  constructor(private router:Router, private templateService:TemplateService,private route:ActivatedRoute, private httpClient: HttpClient) {
+
+    this.form=new FormGroup({
+      'kitNeeded': new FormControl('',Validators.required),
+      'accesFloor': new FormControl('',Validators.required),   
+      'requestFor': new FormControl('',Validators.required)
+    });
+
+   }
 
   ngOnInit(): void {
 
+  
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -111,11 +122,17 @@ export class UpdateTemplateComponent implements OnInit {
         })
       }
       
-      this.selectedEmployees = { item_id: 1, item_text: this.template.requestFor.email};
-      console.log(this.selectedEmployees);
+     // this.selectedEmployees = { item_id: 1, item_text: this.template.requestFor.email};
+     // console.log(this.selectedEmployees);
+     
+    if (this.role==='ROLE_USER') {
+      this.form.controls['requestFor'].clearValidators();
+      this.form.controls['requestFor'].updateValueAndValidity();
+    }
 
     },
     error=>console.log(error));
+
   }
  
   onSubmit(){
@@ -147,6 +164,8 @@ export class UpdateTemplateComponent implements OnInit {
     console.log(items);
 
   }
+
+  get f (){return this.form.controls}
 
 
 }

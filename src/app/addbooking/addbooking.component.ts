@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { BookingRequest } from '../model/booking_request.model';
@@ -33,8 +34,21 @@ export class AddbookingComponent implements OnInit {
 
   bookingRequest:BookingRequest=new BookingRequest();
 
+  form:FormGroup;
+
   
-  constructor(private httpClient:HttpClient, private router:Router) { }
+  constructor(private httpClient:HttpClient, private router:Router) {
+
+    this.form=new FormGroup({
+  
+      'requestBy': new FormControl('',Validators.required),
+      'requestFor': new FormControl('',Validators.required),
+      'accesFloor': new FormControl('',Validators.required), 
+      'kitNeeded': new FormControl('',Validators.required),
+      'status': new FormControl('',Validators.required)
+    });
+    
+   }
 
   ngOnInit(): void {
 
@@ -127,5 +141,7 @@ export class AddbookingComponent implements OnInit {
       this.router.navigate(['/administration']);
 
     }
+
+    get f (){return this.form.controls}
 
 }

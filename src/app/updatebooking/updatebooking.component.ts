@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { BookingRequest } from '../model/booking_request.model';
@@ -36,9 +37,18 @@ export class UpdatebookingComponent implements OnInit {
   status: any;
   bookingRequest: BookingRequest = new BookingRequest();
   floorAccess: number[] = [];
-  isAdmin:boolean = sessionStorage.getItem('role') === "ROLE_ADMIN";
+  form:FormGroup;
 
-  constructor(private router: Router, private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private router:Router,private httpClient:HttpClient,private route:ActivatedRoute) { 
+    this.form=new FormGroup({
+  
+      'requestBy': new FormControl('',Validators.required),
+      'requestFor': new FormControl('',Validators.required),
+      'accesFloor': new FormControl('',Validators.required), 
+      'kitNeeded': new FormControl('',Validators.required),
+      'status': new FormControl('',Validators.required)
+    });
+  }
 
   ngOnInit(): void {
 
@@ -171,4 +181,5 @@ export class UpdatebookingComponent implements OnInit {
       else this.router.navigate(['/administration']);
     })
   }
+    get f (){return this.form.controls}
 }

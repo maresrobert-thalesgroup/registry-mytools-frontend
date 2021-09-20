@@ -18,28 +18,48 @@
   </div>
   
   <div *ngIf="role === 'ROLE_MANAGER'">
+    <div [formGroup]="form">
       <label>Request For</label>
       <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
           [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
-          (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+          (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" formControlName="requestFor">
       </ng-multiselect-dropdown>
+   <!-- display error start -->
+   <div *ngIf="form.touched && (!form.value.requestFor || form.value.requestFor)">
+      <span class="text-danger" *ngIf="f.requestFor.errors?.required">*Request for is Required.</span>
+  </div>
+  <!-- display error end -->   
       <br>
   </div>
+  </div>
+  
 
+    <div [formGroup]="form">
     <label>Access Floor</label>
     <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
         [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
-        (onSelectAll)="onSelectAll($event)">
+        (onSelectAll)="onSelectAll($event)" formControlName="accesFloor">
     </ng-multiselect-dropdown>
+           <!-- display error start -->
+           <div *ngIf="form.touched && (!form.value.accesFloor || form.value.accesFloor)">
+            <span class="text-danger" *ngIf="f.accesFloor.errors?.required">*Acces floor is Required.</span>
+        </div>
+        <!-- display error end -->   
     <br>
 
     <label>Kit Needed</label>
-    <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired" >
+    <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired" formControlName="kitNeeded">
         <option value="" selected disabled>Kit Needed?</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
         <option value="mask only">Mask Only</option>
     </select>
+    <!-- display error start -->
+    <div *ngIf="f.kitNeeded.invalid && (f.kitNeeded.touched || f.kitNeeded.dirty)">
+      <span class="text-danger" *ngIf="f.kitNeeded.errors?.required">*Kit is Required.</span>
+    </div>
+          <!-- display error end -->   
+    </div>
     <br>
 
         <input disabled type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
@@ -47,6 +67,6 @@
             for="hasOfficeIncomeTraining">Has Office Income Training?</label>
         <br>
 
-    <button class="btn btn-warning">Submit</button>
+      <input [disabled]="form.invalid" type="submit" class="btn btn-warning btn-lg btn-block" name="subimt" value="submit" (click)="onSubmit()">
   </form>
 </div>

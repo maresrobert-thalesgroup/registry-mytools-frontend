@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { TemplateService } from '../service/template.service';
 
 @Component({
   selector: 'app-booking',
@@ -28,9 +31,18 @@ export class BookingComponent implements OnInit {
   kitNeeded: String = "";
   httpOptions: any;
   userData: any;
+  templateId:any;
+  template:any;
+  form:FormGroup 
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute) {
 
+    this.form=new FormGroup({
+      'kitNeeded': new FormControl('',Validators.required),
+      'accesFloor': new FormControl('',Validators.required),   
+      'requestFor': new FormControl('',Validators.required)
+    });
+    
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -59,10 +71,53 @@ export class BookingComponent implements OnInit {
           console.log(this.employeeDropdownList);
         })
       }
+      
+        if (this.role==='ROLE_USER') {
+        this.form.controls['requestFor'].clearValidators();
+        this.form.controls['requestFor'].updateValueAndValidity();
+        }
+
+    if(this.route.snapshot.paramMap.get('templateId')!=null){
+    this.templateId=this.route.snapshot.paramMap.get('templateId');
+    this.templateService.getTemplateById(this.templateId).subscribe(data=>{
+      this.template=data;
+      console.log(data);
+      this.name=this.template.requestBy.email;
+      this.gbu=this.template.requestBy.team.gbu.name;
+      this.team=this.template.requestBy.team.name;
+
+    this.selectedItems = [];
+
+    for (let i = 0; i < this.template.floorAccess.length; i++){ 
+      for (let j = 0; j < this.dropdownList.length; j++) {
+        if(this.template.floorAccess[i].toString() === this.dropdownList[j].item_text)
+          this.selectedItems.push(this.dropdownList[j]);
+      }
+    }
+    console.log(this.selectedItems);
+
+    if (this.role === 'ROLE_MANAGER'){
+      
+      this.selectedEmployees = [];
+    
+      for (let i = 0; i < this.employeeDropdownList.length; i++) {
+        if(this.template.requestFor.email === this.employeeDropdownList[i].item_text)
+          this.selectedEmployees.push(this.employeeDropdownList[i]);
+      }
+      console.log(this.selectedEmployees);
+    }
+
+      this.kitNeeded=this.template.kitRequired;
+      this.hasOfficeIncomeTraining=this.template.requestBy.hasOfficeIncomeTraining;
+
     })
   }
+})
+}
 
   ngOnInit(): void {
+
+    
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -74,7 +129,7 @@ export class BookingComponent implements OnInit {
     };
 
     this.dropdownSettingsEmployees = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'item_text',
       selectAllText: 'Select All',
@@ -89,6 +144,7 @@ export class BookingComponent implements OnInit {
   }
   onSelectAll(items: any) {
     console.log(items);
+
   }
 
   getMonday(d: Date) {
@@ -97,6 +153,8 @@ export class BookingComponent implements OnInit {
       diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff) + 6.048e+8);
   }
+
+  get f (){return this.form.controls}
 
   done() {
     let floors: number[] = [];

@@ -2,19 +2,36 @@
 <div style="width: 400px;" class="container">
     <h1 style="margin-top: 25px;" >Update booking</h1>
     <form (ngSubmit)="onSubmit()">
-        <label>Request by</label>
-        <select class="form-control" [(ngModel)]="selectedRequestBy" name="selectedRequestBy" (ngModelChange)="updateRequestFor($event)" [disabled]="!isAdmin">
-            <option value="" selected disabled>Request by</option>
-            <option *ngFor="let requestBy of requestByList" [ngValue]="requestBy">{{requestBy.email}}</option>
-        </select>
-        <br>
 
-        <label>Request for</label>
-        <select class="form-control" [(ngModel)]="selectedRequestFor" name="selectedRequestFor">
-            <option value="" selected disabled>Request for</option>
-            <option *ngFor="let requestFor of requestForList" [ngValue]="requestFor">{{requestFor.email}}</option>
-        </select>
-        <br>
+
+        <div [formGroup]="form">
+
+            <label>Request by</label>
+            <select class="form-control" [(ngModel)]="selectedRequestBy" name="selectedRequestBy" (ngModelChange)="updateRequestFor($event)" formControlName="requestBy">
+                <option value="" selected disabled>Request by</option>
+                <option *ngFor="let requestBy of requestByList" [ngValue]="requestBy">{{requestBy.email}}</option>
+            </select>
+            <!-- display error start -->
+            <div *ngIf="f.requestBy.invalid && (f.requestBy.touched || f.requestBy.dirty)">
+                <span class="text-danger" *ngIf="f.requestBy.errors?.required">*Request By is Required.</span>
+            </div>
+                <!-- display error end -->   
+            <br>
+    
+            <label>Request for</label>
+            <select class="form-control" [(ngModel)]="selectedRequestFor" name="selectedRequestFor" formControlName="requestFor">
+                <option value="" selected disabled>Request for</option>
+                <option *ngFor="let requestFor of requestForList" [ngValue]="requestFor">{{requestFor.email}}</option>
+            </select>
+            <!-- display error start -->
+            <div *ngIf="f.requestFor.invalid && (f.requestFor.touched || f.requestFor.dirty)">
+                <span class="text-danger" *ngIf="f.requestFor.errors?.required">*Request For is Required.</span>
+            </div>
+            <!-- display error end -->   
+            <br>
+    
+            </div>
+    
 
         <label>Time Period</label>
         <br>
@@ -29,31 +46,51 @@
         </mat-form-field>
         <br>
 
-        <label>Access Floor</label>
-        <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
-            [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)">
-        </ng-multiselect-dropdown>
-        <br>
+        <div [formGroup]="form">
+            <label>Access Floor</label>
+            <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
+                [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)" formControlName="accesFloor">
+            </ng-multiselect-dropdown>
+                   <!-- display error start -->
+                   <div *ngIf="form.touched && (!form.value.accesFloor || form.value.accesFloor)">
+                    <span class="text-danger" *ngIf="f.accesFloor.errors?.required">*Acces floor is Required.</span>
+                </div>
+                <!-- display error end -->   
+            <br>
+
 
         <label>Kit Needed</label>
-        <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired">
+        <select class="form-control" [(ngModel)]="selelectedKitRequired" name="selelectedKitRequired" formControlName="kitNeeded">
             <option value="" selected disabled>Kit Needed?</option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
             <option value="mask only">Mask Only</option>
         </select>
+        <!-- display error start -->
+        <div *ngIf="f.kitNeeded.invalid && (f.kitNeeded.touched || f.kitNeeded.dirty)">
+          <span class="text-danger" *ngIf="f.kitNeeded.errors?.required">*Kit is Required.</span>
+        </div>
+              <!-- display error end -->   
+
         <br>
 
         <label>Status</label>
-        <select class="form-control" [(ngModel)]="status" name="kitNeeded">
+        <select class="form-control" [(ngModel)]="status" name="kitNeeded" formControlName="status">
             <option value="" selected disabled>Status</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
+        <!-- display error start -->
+        <div *ngIf="f.status.invalid && (f.status.touched || f.status.dirty)">
+            <span class="text-danger" *ngIf="f.status.errors?.required">*Kit is Required.</span>
+        </div>
+        <!-- display error end -->         
         <br>
 
-        <button class="btn btn-warning">Submit</button>
+    </div>
+
+        <button [disabled]="form.invalid" class="btn btn-warning">Submit</button>
     </form>
 </div>

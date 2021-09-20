@@ -7,6 +7,7 @@ import { AppUser } from 'src/app/model/app_user.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { TemplateRequest } from 'src/app/model/template_request.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-template',
@@ -36,10 +37,22 @@ export class CreateTemplateComponent implements OnInit {
   selectedEmployees: any = [];
   personalTemplate:boolean=true;
   teamTemplate:boolean=false;
+  form:FormGroup;
+  gbu:any;
+  team:any;
   
 
-  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient) {
+    
+    this.form=new FormGroup({
+      'kitNeeded': new FormControl('',Validators.required),
+      'accesFloor': new FormControl('',Validators.required),   
+      'requestFor': new FormControl('',Validators.required)
+    });
+    
+   }
 
+  
   ngOnInit(): void {
     this.getUserProfile();
     this.template=new TemplateRequest();
@@ -55,7 +68,7 @@ export class CreateTemplateComponent implements OnInit {
     };
 
     this.dropdownSettingsEmployees = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'item_text',
       selectAllText: 'Select All',
@@ -107,6 +120,9 @@ export class CreateTemplateComponent implements OnInit {
     this.httpClient.post("http://localhost:8080/api/v1/profile", this.email, this.httpOptions).subscribe(data => {
       this.userProfile = data;
       this.hasOfficeIncomeTraining = this.userProfile.hasOfficeIncomeTraining;
+      this.gbu=this.userProfile.team.gbu.name;
+      this.team=this.userProfile.team.name;
+
       console.log(this.userProfile);
       if (this.role === 'ROLE_USER') {
         this.manager = this.userProfile.manager.email ? this.userProfile.manager.email : "No manager to display";
@@ -123,24 +139,49 @@ export class CreateTemplateComponent implements OnInit {
       }
       sessionStorage.setItem("id",this.userProfile.id);
     })
+
+    if (this.role==='ROLE_USER'|| this.personalTemplate==true ) {
+      this.form.controls['requestFor'].clearValidators();
+      this.form.controls['requestFor'].updateValueAndValidity();
+    }
   }
 
   onItemSelect(item: any) {
     console.log(item);
+
+    console.log(this.findInvalidControls());
   }
   onSelectAll(items: any) {
     console.log(items);
+    
 
   }
 
   chnageToPersonalTemplate(){
     this.personalTemplate=true;
     this.teamTemplate=false;
+    this.form.controls['requestFor'].clearValidators();
+    this.form.controls['requestFor'].updateValueAndValidity();
   }
 
   chnageToTeamTemplate(){
     this.personalTemplate=false;
     this.teamTemplate=true;
+    this.form.controls['requestFor'].setValidators([Validators.required])
+    this.form.controls['requestFor'].updateValueAndValidity();
   }
+
+  get f (){return this.form.controls}
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.form.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+}
 
 }

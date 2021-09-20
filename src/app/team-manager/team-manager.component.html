@@ -15,6 +15,7 @@
               <th scope="col">Created For</th>
               <th scope="col">From</th>
               <th scope="col">Until</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -24,6 +25,7 @@
               <td>{{booking.request_for.email}}</td>
               <td>{{booking.startDate.split("T")[0]}}</td>
               <td>{{booking.endDate.split("T")[0]}}</td>
+              <td><button class="btn btn-success" (click)="updateBooking(booking.id)">Edit</button></td>
             </tr>
           </tbody>
         </table>

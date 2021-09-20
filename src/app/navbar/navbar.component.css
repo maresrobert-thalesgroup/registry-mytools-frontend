@@ -9,4 +9,10 @@
     font-weight: bold;
     position: sticky;
     top: 0px;
-  }
+    background: rgb(3,154,217);
+    background: linear-gradient(180deg, rgba(3,154,217,1) 53%, rgba(0,212,255,1) 100%);
+}
+
+.custom-toolbar > * {
+    font-weight: bold;
+}

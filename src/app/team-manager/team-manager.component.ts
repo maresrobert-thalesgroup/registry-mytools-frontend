@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-team-manager',
@@ -11,7 +12,7 @@ export class TeamManagerComponent implements OnInit {
   bookingList:any = [];
   printedListUpcoming:any = [];
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
     this.httpOptions = {
@@ -52,6 +53,10 @@ export class TeamManagerComponent implements OnInit {
         return "#ffb347";
     }
     return "white";
+  }
+
+  updateBooking(id:number){
+    this.router.navigate(['updatebooking',id]);
   }
 
 }

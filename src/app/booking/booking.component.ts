@@ -106,8 +106,8 @@ export class BookingComponent implements OnInit {
     let bookingPackage: any = {
       "request_by_id": this.userData.id,
       "request_for_id": this.role === "ROLE_USER" ? this.userData.id : this.selectedEmployees[0].item_id,
-      "startDate": this.startDate.getTime() + (1000 * 60 * 60 * 24),
-      "endDate": this.endDate.getTime() + (1000 * 60 * 60 * 24),
+      "startDate": this.startDate.getTime() + 1000*60*60*3,
+      "endDate": this.endDate.getTime() + 1000*60*60*3,
       "accessFloors": floors,
       "kitNeeded": this.kitNeeded,
       "status": this.role === "ROLE_USER" ? 2 : 1

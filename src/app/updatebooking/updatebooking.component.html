@@ -3,7 +3,7 @@
     <h1 style="margin-top: 25px;" >Update booking</h1>
     <form (ngSubmit)="onSubmit()">
         <label>Request by</label>
-        <select class="form-control" [(ngModel)]="selectedRequestBy" name="selectedRequestBy" (ngModelChange)="updateRequestFor($event)">
+        <select class="form-control" [(ngModel)]="selectedRequestBy" name="selectedRequestBy" (ngModelChange)="updateRequestFor($event)" [disabled]="!isAdmin">
             <option value="" selected disabled>Request by</option>
             <option *ngFor="let requestBy of requestByList" [ngValue]="requestBy">{{requestBy.email}}</option>
         </select>

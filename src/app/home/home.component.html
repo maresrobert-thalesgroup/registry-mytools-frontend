@@ -5,7 +5,6 @@
     <mat-form-field appearance="fill">
       <mat-label>Filter</mat-label>
       <mat-select [(value)]="selected" (selectionChange)='onOptionsSelectedEvent($event.value)'>
-        <mat-option>None</mat-option>
         <mat-option value="All">All</mat-option>
         <mat-option value="Accepted">Accepted</mat-option>
         <mat-option value="Pending">Pending</mat-option>
@@ -16,9 +15,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Sort</mat-label>
       <mat-select [(value)]="selectedSort" (selectionChange)='onSortOptionSelected($event.value)'>
-        <mat-option>None</mat-option>
-        <mat-option value="Oldest to Newest">Oldest to Newest</mat-option>
-        <mat-option value="Newest to Oldest">Newest to Oldest</mat-option>
+        <mat-option value="Oldest to Newest">No Sorting</mat-option>
         <mat-option value="Ascending - Booked Time">Ascending - Booked Time</mat-option>
         <mat-option value="Descending - Booked Time">Descending - Booked Time</mat-option>
       </mat-select>
@@ -46,7 +43,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let booking of printedListUpcoming" [style.background]=getColorStatus(booking.status)>
-          <td>{{booking.id}}</td>
+          <td style="border-right: solid black 0px;">{{booking.id}}</td>
           <td>{{booking.request_by.email}}</td>
           <td>{{booking.request_for.email}}</td>
           <td>{{booking.startDate.split("T")[0]}}</td>

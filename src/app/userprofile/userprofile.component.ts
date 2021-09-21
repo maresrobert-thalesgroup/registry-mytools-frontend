@@ -1,19 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VirtualTimeScheduler } from 'rxjs';
-
-export class UserProfile{
-  constructor(
-    public id:number,
-    public email: string,
-    public firstname: string,
-    public lastname: string,
-    public hasOfficeIncomeTraining:boolean,
-    public role:string,
-    public team:string
-  ){}
-  
-}
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AnimationStyleMetadata } from '@angular/animations';
 
 @Component({
   selector: 'app-userprofile',
@@ -22,9 +11,18 @@ export class UserProfile{
 })
 export class UserprofileComponent implements OnInit {
 
-  userProfile:any;
-  email:any;
   httpOptions:any;
+  emailRequest:any;
+  userProfile:any;
+
+  email:any;
+  firstName:any;
+  lastName:any;
+  role:any;
+  gbu:any;
+  team:any;
+  hasOfficeIncomeTraining:any;
+
 
   constructor(private httpClient:HttpClient) { }
 
@@ -47,10 +45,18 @@ export class UserprofileComponent implements OnInit {
     };
 
 
-    this.email = {"email": sessionStorage.getItem('email')}
-    this.httpClient.post("http://localhost:8080/api/v1/profile",this.email,this.httpOptions).subscribe(data=>{
+    this.emailRequest = {"email": sessionStorage.getItem('email')}
+    this.httpClient.post("http://localhost:8080/api/v1/profile",this.emailRequest,this.httpOptions).subscribe(data=>{
       this.userProfile=data;
       console.log(this.userProfile);   
+      this.email=this.userProfile.email;
+      this.firstName=this.userProfile.firstName;
+      this.lastName=this.userProfile.lastName;
+      this.role=this.userProfile.role;
+      this.gbu=this.userProfile.team.gbu.name;
+      this.team=this.userProfile.team.name;
+      this.hasOfficeIncomeTraining=this.userProfile.hasOfficeIncomeTraining;
+
     })
   }
   

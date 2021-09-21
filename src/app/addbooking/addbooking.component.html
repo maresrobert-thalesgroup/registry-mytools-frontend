@@ -77,13 +77,13 @@
         <label>Status</label>
         <select class="form-control" [(ngModel)]="status" name="kitNeeded" formControlName="status">
             <option value="" selected disabled>Status</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            <option value="0">Rejected</option>
+            <option value="1">Accepted</option>
+            <option value="2">Pending</option>
         </select>
         <!-- display error start -->
         <div *ngIf="f.status.invalid && (f.status.touched || f.status.dirty)">
-            <span class="text-danger" *ngIf="f.status.errors?.required">*Kit is Required.</span>
+            <span class="text-danger" *ngIf="f.status.errors?.required">*Status is Required.</span>
         </div>
         <!-- display error end -->         
         <br>

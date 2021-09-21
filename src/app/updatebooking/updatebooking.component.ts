@@ -38,6 +38,7 @@ export class UpdatebookingComponent implements OnInit {
   bookingRequest: BookingRequest = new BookingRequest();
   floorAccess: number[] = [];
   form:FormGroup;
+  userRole: String = sessionStorage.getItem("role") + "";
 
   constructor(private router:Router,private httpClient:HttpClient,private route:ActivatedRoute) { 
     this.form=new FormGroup({
@@ -48,6 +49,8 @@ export class UpdatebookingComponent implements OnInit {
       'kitNeeded': new FormControl('',Validators.required),
       'status': new FormControl('',Validators.required)
     });
+
+    if(this.userRole==="ROLE_MANAGER") this.form.get('requestBy')?.disable();
   }
 
   ngOnInit(): void {
@@ -85,20 +88,33 @@ export class UpdatebookingComponent implements OnInit {
       for (let i = 0; i < this.requestByList.length; i++) {
         if (this.requestByList[i].email == this.booking.request_by.email)
           this.selectedRequestBy = this.requestByList[i];
-
       }
 
       this.updateRequestFor(this.selectedRequestBy);
+
+
 
       this.startDate = this.booking.startDate;
       this.endDate = this.booking.endDate;
       console.log(this.startDate, this.endDate);
 
+      /*
       for(let i:number = 0; i<this.booking.accessFloors.length; i++){
         this.selectedItems.push({ item_id: i, item_text: this.booking.accessFloors[i] })
       }
       // this.selectedItems = this.booking.accessFloors;
       console.log("SEL ITEMS")
+      console.log(this.selectedItems);
+      */
+
+      this.selectedItems = [];
+
+      for (let i = 0; i < this.booking.accessFloors.length; i++) {
+        for (let j = 0; j < this.dropdownList.length; j++) {
+          if (this.booking.accessFloors[i].toString() === this.dropdownList[j].item_text)
+            this.selectedItems.push(this.dropdownList[j]);
+        }
+      }
       console.log(this.selectedItems);
 
       this.selelectedKitRequired = this.booking.kitNeeded;
@@ -116,10 +132,12 @@ export class UpdatebookingComponent implements OnInit {
     this.httpClient.get("http://localhost:8080/api/v1/profile/" + teamId, this.httpOptions).subscribe(data => {
       this.requestForList = data;
       console.log(this.requestForList);
+
+      console.log("Request for list is: ",this.requestForList);
+
       for (let i = 0; i < this.requestForList.length; i++) {
         if (this.requestForList[i].email == this.booking.request_for.email)
-          console.log(this.requestForList[i].email, this.booking.request_for.email);
-        this.selectedRequestFor = this.requestForList[i];
+          this.selectedRequestFor = this.requestForList[i];
       }
     })
   }
@@ -151,8 +169,10 @@ export class UpdatebookingComponent implements OnInit {
       }
 
     }
-    if (requestBy.role == "ROLE_MANAGER")
+    if (requestBy.role == "ROLE_MANAGER"){
       this.getRequestFor(requestBy.team.id);
+
+    }
   }
 
   onSubmit() {

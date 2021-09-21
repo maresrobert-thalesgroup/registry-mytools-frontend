@@ -22,7 +22,7 @@
             <td>{{booking.endDate.split("T")[0]}}</td>
             <td>{{booking.accessFloors}}</td>
             <td>{{booking.kitNeeded}}</td>
-            <td>{{booking.status}}</td>
+            <td>{{booking.status===0? "Rejected": booking.status===1? "Accepted":"Pending"}}</td>
             <td>
                 <button (click)="deleteBooking(booking.id)" class="btn btn-danger">Delete</button>
                 <button (click)="updateBooking(booking.id)" class="btn btn-primary" style="margin-left: 10px">Edit</button>

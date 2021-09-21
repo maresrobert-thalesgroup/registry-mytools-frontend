@@ -31,14 +31,14 @@ export class AdministrationComponent implements OnInit {
     })
   }
 
-  getColorStatus(status:number) :String{
-    switch(status){
+  getColorStatus(status: number): String {
+    switch (status) {
       case 0:
-        return "red";
+        return "#f88379";
       case 1:
-        return "lime";
+        return "#B2FFFF";
       case 2:
-        return "orange";
+        return "#ffb347";
     }
     return "white";
   }

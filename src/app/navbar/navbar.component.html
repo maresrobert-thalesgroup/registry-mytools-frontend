@@ -3,19 +3,20 @@
         <mat-icon style="vertical-align: middle;">polymer</mat-icon> MyRegistry
     </span>
 
-    <button mat-button routerLink="/">
+    
+    <button *ngIf="role !== 'ROLE_ADMIN'" mat-button routerLink="/">
         <mat-icon>dashboard</mat-icon> Dashboard
     </button>
-    <button mat-button routerLink="/mybookings">
+    <button *ngIf="role !== 'ROLE_ADMIN'" mat-button routerLink="/mybookings">
         <mat-icon>view_list</mat-icon> My Bookings
     </button>
-    <button mat-button routerLink="/bookadesk">
+    <button *ngIf="role !== 'ROLE_ADMIN'" mat-button routerLink="/bookadesk">
         <mat-icon>create</mat-icon> Book a desk
     </button>
     <button *ngIf="role === 'ROLE_MANAGER'" mat-button routerLink="/teamman">
         <mat-icon>supervisor_account</mat-icon> Manage My Team
     </button>
-    <button mat-button routerLink="/navbartemplates">
+    <button *ngIf="role !== 'ROLE_ADMIN'" mat-button routerLink="/navbartemplates">
         <mat-icon>bookmark_border</mat-icon> Templates
     </button>
     <button *ngIf="role === 'ROLE_MANAGER'" mat-button routerLink="/bookreq">

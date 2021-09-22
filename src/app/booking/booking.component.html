@@ -1,83 +1,90 @@
 <app-navbar></app-navbar>
-<div class="container" style="width: 750px;" >
-    <h1 style="padding: 25px;">Book a desk</h1>
-    <form name = "form">
-        <label>Name</label>
-        <input class="form-control" [(ngModel)]="name" name="name" disabled>
-        <br>
-        <label>Time Period</label>
-        <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-                <input matStartDate placeholder="Start date" [(ngModel)]="startDate" name="startDate">
-                <input matEndDate placeholder="End date" [(ngModel)]="endDate" name="endDate">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-        <br>
-        <label>GBU</label>
-        <input class="form-control" [(ngModel)]="gbu" name="gbu" disabled>
-        <br>
-        <label>Team</label>
-        <input class="form-control" [(ngModel)]="team" name="team" disabled>
-        <br>
-        <div *ngIf="role==='ROLE_USER'">
-            <label>Manager</label>
-            <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
+<div class="row" style="width: 100%;">
+    <div class="col-xs-5" style="margin-top:50px; margin-left: 70px;" >
+        <img style="width:100%" src="assets/undraw_date_picker_gorr.svg">
+    </div>
+    <div class=" col-xs-6" style="margin-left:100px; width: 600px;">
+        <h1 style="margin-top: 35px; margin-bottom: 15px; font-size: 48px;">Book a desk</h1>
+        <form name="form">
+            <label>Name</label>
+            <input class="form-control" [(ngModel)]="name" name="name" disabled>
             <br>
-        </div>
-        
-        <div *ngIf="role === 'ROLE_MANAGER'">
+            <label>Time Period</label>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                    <input matStartDate placeholder="Start date" [(ngModel)]="startDate" name="startDate">
+                    <input matEndDate placeholder="End date" [(ngModel)]="endDate" name="endDate">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <br>
+            <label>GBU</label>
+            <input class="form-control" [(ngModel)]="gbu" name="gbu" disabled>
+            <br>
+            <label>Team</label>
+            <input class="form-control" [(ngModel)]="team" name="team" disabled>
+            <br>
+            <div *ngIf="role==='ROLE_USER'">
+                <label>Manager</label>
+                <input class="form-control" [(ngModel)]="manager" name="manager" disabled>
+                <br>
+            </div>
+
+            <div *ngIf="role === 'ROLE_MANAGER'">
+                <div [formGroup]="form">
+                    <label>Request For</label>
+                    <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
+                        [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
+                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        formControlName="requestFor">
+                    </ng-multiselect-dropdown>
+                    <!-- display error start -->
+                    <div *ngIf="form.touched && (!form.value.requestFor || form.value.requestFor)">
+                        <span class="text-danger" *ngIf="f.requestFor.errors?.required">*Request for is Required.</span>
+                    </div>
+                    <!-- display error end -->
+                    <br>
+                </div>
+            </div>
+
             <div [formGroup]="form">
-            <label>Request For</label>
-            <ng-multiselect-dropdown [placeholder]="'Request For'" [settings]="dropdownSettingsEmployees"
-                [data]="employeeDropdownList" [(ngModel)]="selectedEmployees" name="selectedEmployees"
-                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" formControlName="requestFor">
-            </ng-multiselect-dropdown>
-         <!-- display error start -->
-         <div *ngIf="form.touched && (!form.value.requestFor || form.value.requestFor)">
-            <span class="text-danger" *ngIf="f.requestFor.errors?.required">*Request for is Required.</span>
-        </div>
-        <!-- display error end -->   
+                <label>Access Floor</label>
+                <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings"
+                    [data]="dropdownList" [(ngModel)]="selectedItems" name="selectedItems"
+                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" formControlName="accesFloor">
+                </ng-multiselect-dropdown>
+                <!-- display error start -->
+                <div *ngIf="form.touched && (!form.value.accesFloor || form.value.accesFloor)">
+                    <span class="text-danger" *ngIf="f.accesFloor.errors?.required">*Acces floor is Required.</span>
+                </div>
+                <!-- display error end -->
+                <br>
+
+                <label>Kit Needed</label>
+
+                <select class="form-control" [(ngModel)]="kitNeeded" name="kitNeeded" formControlName="kitNeeded">
+                    <option value="" selected disabled>Kit Needed?</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="mask only">Mask Only</option>
+                </select>
+                <!-- display error start -->
+                <div *ngIf="f.kitNeeded.invalid && (f.kitNeeded.touched || f.kitNeeded.dirty)">
+                    <span class="text-danger" *ngIf="f.kitNeeded.errors?.required">*Kit is Required.</span>
+                </div>
+                <!-- display error end -->
+            </div>
             <br>
-        </div>
-        </div>
 
-        <div [formGroup]="form">
-        <label>Access Floor</label>
-        <ng-multiselect-dropdown [placeholder]="'Access Floor'" [settings]="dropdownSettings" [data]="dropdownList"
-            [(ngModel)]="selectedItems" name="selectedItems" (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)" formControlName="accesFloor">
-        </ng-multiselect-dropdown>
-        <!-- display error start -->
-         <div *ngIf="form.touched && (!form.value.accesFloor || form.value.accesFloor)">
-            <span class="text-danger" *ngIf="f.accesFloor.errors?.required">*Acces floor is Required.</span>
-        </div>
-        <!-- display error end -->   
-        <br>
-
-        <label>Kit Needed</label>
-       
-        <select class="form-control" [(ngModel)]="kitNeeded" name="kitNeeded" formControlName="kitNeeded">
-            <option value="" selected disabled>Kit Needed?</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="mask only">Mask Only</option>
-        </select>
-        <!-- display error start -->
-        <div *ngIf="f.kitNeeded.invalid && (f.kitNeeded.touched || f.kitNeeded.dirty)">
-            <span class="text-danger" *ngIf="f.kitNeeded.errors?.required">*Kit is Required.</span>
-        </div>
-        <!-- display error end -->   
-        </div>     
-        <br>
-
-        <input disabled type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
-            value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
-            for="hasOfficeIncomeTraining">Has Office Income Training?</label>
-        <br>
-        <input [disabled]="form.invalid" type="submit" class="btn btn-warning btn-lg btn-block sumbitbtn" name="subimt" value="Submit" (click)="done()">
-    </form>
+            <input disabled type="checkbox" id="hasOfficeIncomeTraining" name="hasOfficeIncomeTraining"
+                value="hasOfficeIncomeTraining" [(ngModel)]="hasOfficeIncomeTraining"><label
+                for="hasOfficeIncomeTraining">Has Office Income Training?</label>
+            <br>
+            <input [disabled]="form.invalid" type="submit" class="btn btn-warning btn-lg btn-block sumbitbtn"
+                name="subimt" value="Submit" (click)="done()">
+        </form>
+    </div>
 </div>

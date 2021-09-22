@@ -1,6 +1,10 @@
 <app-navbar></app-navbar>
-<div style="width: 400px;" class="container">
-    <h1 style="margin-top: 25px;" >Create booking</h1>
+<div class="row" style="width: 100%; padding-left: 250px;">
+    <div class="col-xs-5" style="margin-top: 70px;">
+        <img style="width:100%" src="assets/undraw_Booked_re_vtod.svg">
+    </div>
+    <div class=" col-xs-6" style="margin-left:100px; width: 450px; background-color: white; border-left:solid white 15px">
+    <h1 class="text-center" style="margin-top:50px; margin: bottom 15px; font-size: 48px;">Create Booking</h1>
     <form (ngSubmit)="onSubmit()"> 
 
         <div [formGroup]="form">
@@ -90,6 +94,7 @@
 
     </div>
 
-        <button [disabled]="form.invalid" class="btn btn-warning">Submit</button>
+        <button [disabled]="form.invalid" class="btn btn-warning btn-lg btn-block sumbitbtn">Submit</button>
     </form>
+</div>
 </div>

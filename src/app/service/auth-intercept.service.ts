@@ -8,10 +8,10 @@ export class AuthInterceptService {
 
   constructor() { }
 
-  intercept(req:HttpRequest<any>, next:HttpHandler){
-    if(sessionStorage.getItem("email") && sessionStorage.getItem("token")){
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if (sessionStorage.getItem("email") && sessionStorage.getItem("token")) {
       req = req.clone({
-        headers: req.headers.append("Authorization", ""+sessionStorage.getItem('token'))
+        headers: req.headers.append("Authorization", "" + sessionStorage.getItem('token'))
       })
     }
     return next.handle(req);

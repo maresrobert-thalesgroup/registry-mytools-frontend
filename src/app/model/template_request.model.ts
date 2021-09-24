@@ -1,7 +1,7 @@
-export class TemplateRequest{
-    id:number;
-    requestById:number;
+export class TemplateRequest {
+    id: number;
+    requestById: number;
     requestForId: number;
-    floorAccess:number[];
-    kitRequired:String;
+    floorAccess: number[];
+    kitRequired: String;
 }

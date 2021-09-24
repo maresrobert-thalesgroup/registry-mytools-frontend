@@ -1,29 +1,28 @@
-
 <div *ngIf="templates2 | async" class="panel panel-primary">
-    <div class="panel-heading">
-      <h1>Template List</h1>
-    </div>
-    <div >
+  <div class="panel-heading">
+    <h1>Template List</h1>
+  </div>
+  <div>
     <div class="panel-body">
       <table id="datable-example" class="display" cellspacing="10" width="100%">
 
         <thead>
           <tr>
             <th>Template name</th>
-            <th >Request by</th>
-            <th >Request for</th>
-            <th >GBU</th>
-            <th >Team</th>
-            <th >Floor acces</th>
+            <th>Request by</th>
+            <th>Request for</th>
+            <th>GBU</th>
+            <th>Team</th>
+            <th>Floor acces</th>
             <th>Kit Required</th>
             <th> Office income training</th>
             <th> Action</th>
           </tr>
         </thead>
 
-        <tbody>     
+        <tbody>
 
-       <tr *ngFor="let template of templates2 | async ">  
+          <tr *ngFor="let template of templates2 | async ">
             <td>T-{{template.requestFor.split('@')[0]}}-{{template.floorAccess}}-{{template.kitRequired}}</td>
             <td>{{template.requestBy}}</td>
             <td>{{template.requestFor}}</td>
@@ -32,14 +31,15 @@
             <td>{{template.floorAccess}}</td>
             <td>{{template.kitRequired}}</td>
             <td>{{template.officeIncomeTraining}}</td>
-         
-              <td><button  (click)="deleteTemplate(template.id)" class="btn btn-danger">Delete</button>
-                <button  (click)="updateTemplate(template.id)" class="btn btn-success" style="margin-left: 10px">Edit details</button>
-                <button (click)="applyTemplate(template.id)" class="btn btn-info" style="margin-left: 10px">Apply</button>
-              </td>
+
+            <td><button (click)="deleteTemplate(template.id)" class="btn btn-danger">Delete</button>
+              <button (click)="updateTemplate(template.id)" class="btn btn-success" style="margin-left: 10px">Edit
+                details</button>
+              <button (click)="applyTemplate(template.id)" class="btn btn-info" style="margin-left: 10px">Apply</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  </div>
+</div>

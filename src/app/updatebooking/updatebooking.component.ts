@@ -38,21 +38,21 @@ export class UpdatebookingComponent implements OnInit {
   status: any;
   bookingRequest: BookingRequest = new BookingRequest();
   floorAccess: number[] = [];
-  form:FormGroup;
+  form: FormGroup;
   userRole: String = sessionStorage.getItem("role") + "";
 
-  constructor(private router:Router,private httpClient:HttpClient,private route:ActivatedRoute, private validationService:ValidationserviceService) { 
+  constructor(private router: Router, private httpClient: HttpClient, private route: ActivatedRoute, private validationService: ValidationserviceService) {
     validationService.validate();
-    this.form=new FormGroup({
-  
-      'requestBy': new FormControl('',Validators.required),
-      'requestFor': new FormControl('',Validators.required),
-      'accesFloor': new FormControl('',Validators.required), 
-      'kitNeeded': new FormControl('',Validators.required),
-      'status': new FormControl('',Validators.required)
+    this.form = new FormGroup({
+
+      'requestBy': new FormControl('', Validators.required),
+      'requestFor': new FormControl('', Validators.required),
+      'accesFloor': new FormControl('', Validators.required),
+      'kitNeeded': new FormControl('', Validators.required),
+      'status': new FormControl('', Validators.required)
     });
 
-    if(this.userRole==="ROLE_MANAGER") this.form.get('requestBy')?.disable();
+    if (this.userRole === "ROLE_MANAGER") this.form.get('requestBy')?.disable();
   }
 
   ngOnInit(): void {
@@ -98,7 +98,7 @@ export class UpdatebookingComponent implements OnInit {
 
       this.startDate = this.booking.startDate;
       this.endDate = this.booking.endDate;
- 
+
 
       /*
       for(let i:number = 0; i<this.booking.accessFloors.length; i++){
@@ -120,7 +120,7 @@ export class UpdatebookingComponent implements OnInit {
 
 
       this.selelectedKitRequired = this.booking.kitNeeded;
-;
+      ;
 
       this.status = this.booking.status;
 
@@ -135,7 +135,7 @@ export class UpdatebookingComponent implements OnInit {
       this.requestForList = data;
 
 
-     
+
 
       for (let i = 0; i < this.requestForList.length; i++) {
         if (this.requestForList[i].email == this.booking.request_for.email)
@@ -169,12 +169,12 @@ export class UpdatebookingComponent implements OnInit {
 
       for (let i = 0; i < this.requestForList.length; i++) {
         if (this.requestForList[i].email == this.booking.request_for.email)
- 
-        this.selectedRequestFor = this.requestForList[i];
+
+          this.selectedRequestFor = this.requestForList[i];
       }
 
     }
-    if (requestBy.role == "ROLE_MANAGER"){
+    if (requestBy.role == "ROLE_MANAGER") {
       this.getRequestFor(requestBy.team.id);
 
     }
@@ -186,8 +186,8 @@ export class UpdatebookingComponent implements OnInit {
 
     var dummyStartDate = new Date(this.startDate);
     var dummyEndDate = new Date(this.endDate);
-    this.bookingRequest.startDate = new Date(dummyStartDate.getTime() + (1000*60*60*3));
-    this.bookingRequest.endDate = new Date(dummyEndDate.getTime() + (1000*60*60*3));
+    this.bookingRequest.startDate = new Date(dummyStartDate.getTime() + (1000 * 60 * 60 * 3));
+    this.bookingRequest.endDate = new Date(dummyEndDate.getTime() + (1000 * 60 * 60 * 3));
 
 
     for (let i = 0; i < this.selectedItems.length; i++) {
@@ -198,13 +198,13 @@ export class UpdatebookingComponent implements OnInit {
     this.bookingRequest.kitNeeded = this.selelectedKitRequired;
     this.bookingRequest.status = this.status;
 
-    
+
 
     this.httpClient.put("http://localhost:8080/api/v1/booking/" + this.booking.id, this.bookingRequest, this.httpOptions).subscribe(data => {
 
-      if(sessionStorage.getItem('role')==='ROLE_MANAGER') this.router.navigate(['/teamman']);
+      if (sessionStorage.getItem('role') === 'ROLE_MANAGER') this.router.navigate(['/teamman']);
       else this.router.navigate(['/administration']);
     })
   }
-    get f (){return this.form.controls}
+  get f() { return this.form.controls }
 }

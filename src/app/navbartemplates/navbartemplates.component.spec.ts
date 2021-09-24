@@ -8,9 +8,9 @@ describe('NavbartemplatesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbartemplatesComponent ]
+      declarations: [NavbartemplatesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

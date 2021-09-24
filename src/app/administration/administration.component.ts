@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ValidationserviceService } from '../service/validationservice.service';
 
@@ -10,11 +10,11 @@ import { ValidationserviceService } from '../service/validationservice.service';
 })
 export class AdministrationComponent implements OnInit {
 
-  httpOptions:any;
-  bookingList:any = [];
-  isLoaded:boolean=false;
+  httpOptions: any;
+  bookingList: any = [];
+  isLoaded: boolean = false;
 
-  constructor(private httpClient:HttpClient, private router:Router, private validationService:ValidationserviceService) {
+  constructor(private httpClient: HttpClient, private router: Router, private validationService: ValidationserviceService) {
     validationService.validate();
   }
 
@@ -32,11 +32,11 @@ export class AdministrationComponent implements OnInit {
     this.getAllBookings();
   }
 
-  getAllBookings(){
-    this.httpClient.get("http://localhost:8080/api/v1/booking",this.httpOptions).subscribe(data => {
+  getAllBookings() {
+    this.httpClient.get("http://localhost:8080/api/v1/booking", this.httpOptions).subscribe(data => {
       this.bookingList = data;
 
-      this.isLoaded=true;
+      this.isLoaded = true;
     })
   }
 
@@ -52,21 +52,21 @@ export class AdministrationComponent implements OnInit {
     return "white";
   }
 
-  deleteBooking(id:number){
+  deleteBooking(id: number) {
 
 
-    this.httpClient.delete("http://localhost:8080/api/v1/booking/delete/" + id,this.httpOptions).subscribe(data=>{
+    this.httpClient.delete("http://localhost:8080/api/v1/booking/delete/" + id, this.httpOptions).subscribe(data => {
 
       //this.bookingList = this.bookingList.filter((b:any)=>b.id !== id);
       this.getAllBookings();
     })
   }
-  
-  updateBooking(id:number){
-    this.router.navigate(['updatebooking',id]);
+
+  updateBooking(id: number) {
+    this.router.navigate(['updatebooking', id]);
   }
 
-  createBooking(){
+  createBooking() {
     this.router.navigate(['/addbooking']);
   }
 

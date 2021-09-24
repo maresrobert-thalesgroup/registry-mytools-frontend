@@ -8,7 +8,7 @@ import { ValidationserviceService } from '../service/validationservice.service';
 })
 export class TemplatesComponent implements OnInit {
 
-  constructor(private validationService:ValidationserviceService) {
+  constructor(private validationService: ValidationserviceService) {
     validationService.validate();
   }
 

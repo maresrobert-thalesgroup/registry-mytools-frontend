@@ -13,16 +13,16 @@ export class LoginComponent implements OnInit {
   password = "";
   invalidLogin = false;
 
-  @Input() error : string | null;
+  @Input() error: string | null;
 
-  constructor(private router: Router, private loginService : AuthenticationService) {
+  constructor(private router: Router, private loginService: AuthenticationService) {
     this.error = "";
   }
 
   ngOnInit(): void {
   }
 
-  checkLogin(){
+  checkLogin() {
     this.loginService.authenticate(this.email, this.password).subscribe(
       data => {
         this.router.navigate(["/mybookings"])

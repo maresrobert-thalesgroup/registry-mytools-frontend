@@ -1,64 +1,66 @@
-    <app-navbar></app-navbar>
-    <div class="row" style="width: 100%; padding-left: 250px; margin-top: 50px;">
+<app-navbar></app-navbar>
+<div class="row" style="width: 100%; padding-left: 250px; margin-top: 50px;">
     <div class="col-xs-5" style="margin-top: 100px;">
         <img style="width:110%" src="assets/undraw_Profile_data_re_v81r.svg">
     </div>
-    <div class=" col-xs-6" style="margin-left:150px; width: 450px; background-color: white; border-left:solid white 15px">
-    
-                <form class="content">
-                    <h1 class="text-center" style="font-size: 48px;">My profile</h1>
-                    <div class="row">
-    
-                        <!-- email  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <label>Email:</label>
-                            <input disabled type="text" [(ngModel)] = "email" name='email'  class="form-control">
-                        </div>
-    
-                        <!-- firstname  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <label>First name:</label>
-                            <input disabled type="text" [(ngModel)] = "firstName" name='firstName' class="form-control">
-                        </div>
-    
-                        <!-- lastname  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <label>Last name:</label>
-                            <input disabled type="text" [(ngModel)] = "lastName" name='lastName'  class="form-control">
-                        </div>
+    <div class=" col-xs-6"
+        style="margin-left:150px; width: 450px; background-color: white; border-left:solid white 15px">
 
-                        <!-- role  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <label>Role:</label>
-                            <input disabled type="text" [(ngModel)] = "role" name='role' class="form-control">
-                        </div>
+        <form class="content">
+            <h1 class="text-center" style="font-size: 48px;">My profile</h1>
+            <div class="row">
 
-                         <!-- gbu  -->
-                         <div class=" mt-3 col-lg-12 col-12">
-                            <label>GBU:</label>
-                            <input disabled type="text" [(ngModel)] = "gbu" name='gbu' class="form-control">
-                        </div>
-                        
-    
-                         <!-- team  -->
-                         <div class=" mt-3 col-lg-12 col-12">
-                            <label>Team:</label>
-                            <input disabled type="text" [(ngModel)] = "team" name='team' class="form-control">
-                        </div>
+                <!-- email  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>Email:</label>
+                    <input disabled type="text" [(ngModel)]="email" name='email' class="form-control">
+                </div>
 
-                        <!-- office income training  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <label>Office income training:</label>
-                            <input disabled type="text"  [(ngModel)] = "hasOfficeIncomeTraining" name='hasOfficeIncomeTraining' class="form-control">
-                        </div>
-    
+                <!-- firstname  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>First name:</label>
+                    <input disabled type="text" [(ngModel)]="firstName" name='firstName' class="form-control">
+                </div>
 
-    
-                        <!-- back  -->
-                        <div class=" mt-3 col-lg-12 col-12">
-                            <button class="btn btn-warning btn-lg btn-block sumbitbtn" routerLink="/mybookings">Back</button>
-                        </div>
-                    </div>
-                </form>
+                <!-- lastname  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>Last name:</label>
+                    <input disabled type="text" [(ngModel)]="lastName" name='lastName' class="form-control">
+                </div>
+
+                <!-- role  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>Role:</label>
+                    <input disabled type="text" [(ngModel)]="role" name='role' class="form-control">
+                </div>
+
+                <!-- gbu  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>GBU:</label>
+                    <input disabled type="text" [(ngModel)]="gbu" name='gbu' class="form-control">
+                </div>
+
+
+                <!-- team  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>Team:</label>
+                    <input disabled type="text" [(ngModel)]="team" name='team' class="form-control">
+                </div>
+
+                <!-- office income training  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <label>Office income training:</label>
+                    <input disabled type="text" [(ngModel)]="hasOfficeIncomeTraining" name='hasOfficeIncomeTraining'
+                        class="form-control">
+                </div>
+
+
+
+                <!-- back  -->
+                <div class=" mt-3 col-lg-12 col-12">
+                    <button class="btn btn-warning btn-lg btn-block sumbitbtn" routerLink="/mybookings">Back</button>
+                </div>
             </div>
-        </div>
+        </form>
+    </div>
+</div>

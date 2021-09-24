@@ -1,37 +1,36 @@
 <app-navbar></app-navbar>
 <div *ngIf="isLoaded===true">
-<div class="container">
+  <div class="container">
     <h1 class="text-center" style="margin-top: 35px; margin-bottom: 35px; font-size: 48px;">Desk bookings</h1>
     <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Request By</th>
-            <th scope="col">Request For</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Access Floors</th>
-            <th scope="col">Kit Needed</th>
-            <th scope="col">Status</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let booking of bookingList" [style.background] = getColorStatus(booking.status)>
-            <td>{{booking.request_by.email}}</td>
-            <td>{{booking.request_for.email}}</td>
-            <td>{{booking.startDate.split("T")[0]}}</td>
-            <td>{{booking.endDate.split("T")[0]}}</td>
-            <td>{{booking.accessFloors}}</td>
-            <td>{{booking.kitNeeded}}</td>
-            <td>{{booking.status===0? "Rejected": booking.status===1? "Accepted":"Pending"}}</td>
-            <td>
-                <button (click)="deleteBooking(booking.id)" class="btn btn-danger">Delete</button>
-                <button (click)="updateBooking(booking.id)" class="btn btn-primary" style="margin-left: 10px">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button (click)="createBooking()" class="btn btn-primary">Create booking</button>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Request By</th>
+          <th scope="col">Request For</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Access Floors</th>
+          <th scope="col">Kit Needed</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookingList" [style.background]=getColorStatus(booking.status)>
+          <td>{{booking.request_by.email}}</td>
+          <td>{{booking.request_for.email}}</td>
+          <td>{{booking.startDate.split("T")[0]}}</td>
+          <td>{{booking.endDate.split("T")[0]}}</td>
+          <td>{{booking.accessFloors}}</td>
+          <td>{{booking.kitNeeded}}</td>
+          <td>{{booking.status===0? "Rejected": booking.status===1? "Accepted":"Pending"}}</td>
+          <td>
+            <button (click)="deleteBooking(booking.id)" class="btn btn-danger">Delete</button>
+            <button (click)="updateBooking(booking.id)" class="btn btn-primary" style="margin-left: 10px">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="createBooking()" class="btn btn-primary">Create booking</button>
+  </div>
 </div>
-</div>
-

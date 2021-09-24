@@ -8,10 +8,10 @@ import { ValidationserviceService } from '../service/validationservice.service';
   styleUrls: ['./booking-request.component.css']
 })
 export class BookingRequestComponent implements OnInit {
-  
-  bookingList:any = [];
-  httpOptions:any;
-  constructor(private httpClient:HttpClient, private validationService:ValidationserviceService) {
+
+  bookingList: any = [];
+  httpOptions: any;
+  constructor(private httpClient: HttpClient, private validationService: ValidationserviceService) {
     validationService.validate();
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -24,16 +24,16 @@ export class BookingRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpClient.post("http://localhost:8080/api/v1/booking/bookingreq",{"email":sessionStorage.getItem("email")},this.httpOptions).subscribe(data =>{
+    this.httpClient.post("http://localhost:8080/api/v1/booking/bookingreq", { "email": sessionStorage.getItem("email") }, this.httpOptions).subscribe(data => {
       this.bookingList = data;
 
     })
   }
 
-  updateBooking(id:number, status:number){
-    this.httpClient.put("http://localhost:8080/api/v1/booking/update/"+id,{"status":status},this.httpOptions).subscribe(data => {
+  updateBooking(id: number, status: number) {
+    this.httpClient.put("http://localhost:8080/api/v1/booking/update/" + id, { "status": status }, this.httpOptions).subscribe(data => {
 
-      this.bookingList = this.bookingList.filter((b:any) => b.id !== id);
+      this.bookingList = this.bookingList.filter((b: any) => b.id !== id);
     })
   }
 

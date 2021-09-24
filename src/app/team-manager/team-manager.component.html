@@ -1,33 +1,33 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <h1 class="text-center" style="margin-top: 35px; margin-bottom: 35px; font-size: 48px;">Manage Your Team</h1>
-    <mat-expansion-panel hideToggle [expanded]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Your Team's Upcoming Bookings
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Created By</th>
-              <th scope="col">Created For</th>
-              <th scope="col">From</th>
-              <th scope="col">Until</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let booking of printedListUpcoming" [style.background]=getColorStatus(booking.status)>
-              <td>{{booking.id}}</td>
-              <td>{{booking.request_by.email}}</td>
-              <td>{{booking.request_for.email}}</td>
-              <td>{{booking.startDate.split("T")[0]}}</td>
-              <td>{{booking.endDate.split("T")[0]}}</td>
-              <td><button class="btn btn-success" (click)="updateBooking(booking.id)">Edit</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </mat-expansion-panel>
+  <h1 class="text-center" style="margin-top: 35px; margin-bottom: 35px; font-size: 48px;">Manage Your Team</h1>
+  <mat-expansion-panel hideToggle [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Your Team's Upcoming Bookings
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created For</th>
+          <th scope="col">From</th>
+          <th scope="col">Until</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of printedListUpcoming" [style.background]=getColorStatus(booking.status)>
+          <td>{{booking.id}}</td>
+          <td>{{booking.request_by.email}}</td>
+          <td>{{booking.request_for.email}}</td>
+          <td>{{booking.startDate.split("T")[0]}}</td>
+          <td>{{booking.endDate.split("T")[0]}}</td>
+          <td><button class="btn btn-success" (click)="updateBooking(booking.id)">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-expansion-panel>
 </div>

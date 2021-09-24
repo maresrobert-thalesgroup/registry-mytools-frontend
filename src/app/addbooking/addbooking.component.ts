@@ -19,38 +19,38 @@ export class AddbookingComponent implements OnInit {
   { item_id: 3, item_text: '8' },];
   selectedItems: any = [];
 
-  httpOptions:any;
-  requestByList:any;
-  selectedRequestBy:any;
-  requestForList:any=[];
-  selectedRequestFor:any;
+  httpOptions: any;
+  requestByList: any;
+  selectedRequestBy: any;
+  requestForList: any = [];
+  selectedRequestFor: any;
 
   startDate: Date = this.getMonday(new Date());
   endDate: Date = this.getMonday(new Date());
   minDate: Date = this.getMonday(new Date());
 
-  selelectedKitRequired:any;
-  status:any;
+  selelectedKitRequired: any;
+  status: any;
   floorAccess: number[] = [];
 
-  bookingRequest:BookingRequest=new BookingRequest();
+  bookingRequest: BookingRequest = new BookingRequest();
 
-  form:FormGroup;
+  form: FormGroup;
 
-  
-  constructor(private httpClient:HttpClient, private router:Router, private validationService:ValidationserviceService) {
+
+  constructor(private httpClient: HttpClient, private router: Router, private validationService: ValidationserviceService) {
     validationService.validate();
 
-    this.form=new FormGroup({
-  
-      'requestBy': new FormControl('',Validators.required),
-      'requestFor': new FormControl('',Validators.required),
-      'accesFloor': new FormControl('',Validators.required), 
-      'kitNeeded': new FormControl('',Validators.required),
-      'status': new FormControl('',Validators.required)
+    this.form = new FormGroup({
+
+      'requestBy': new FormControl('', Validators.required),
+      'requestFor': new FormControl('', Validators.required),
+      'accesFloor': new FormControl('', Validators.required),
+      'kitNeeded': new FormControl('', Validators.required),
+      'status': new FormControl('', Validators.required)
     });
-    
-   }
+
+  }
 
   ngOnInit(): void {
 
@@ -74,7 +74,7 @@ export class AddbookingComponent implements OnInit {
       )
     };
 
-    this.httpClient.get("http://localhost:8080/api/v1/profile/users",this.httpOptions).subscribe(data => {
+    this.httpClient.get("http://localhost:8080/api/v1/profile/users", this.httpOptions).subscribe(data => {
       this.requestByList = data;
 
     })
@@ -90,60 +90,60 @@ export class AddbookingComponent implements OnInit {
 
   }
 
-  updateRequestFor(requestBy:any){
+  updateRequestFor(requestBy: any) {
 
-    if(requestBy.role=="ROLE_USER"){
-        this.requestForList=[];
-        this.requestForList[0]=requestBy;
-        
-    }
-    if(requestBy.role=="ROLE_MANAGER"){
-    this.getRequestFor(requestBy.team.id);
-    }
+    if (requestBy.role == "ROLE_USER") {
+      this.requestForList = [];
+      this.requestForList[0] = requestBy;
 
     }
-
-    getRequestFor(teamId:any){
-      this.httpClient.get("http://localhost:8080/api/v1/profile/"+teamId,this.httpOptions).subscribe(data => {
-        this.requestForList = data;
-
-      })
+    if (requestBy.role == "ROLE_MANAGER") {
+      this.getRequestFor(requestBy.team.id);
     }
 
-    getMonday(d: Date) {
-      d = new Date(d);
-      var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
-      return new Date(d.setDate(diff) + 6.048e+8);
+  }
+
+  getRequestFor(teamId: any) {
+    this.httpClient.get("http://localhost:8080/api/v1/profile/" + teamId, this.httpOptions).subscribe(data => {
+      this.requestForList = data;
+
+    })
+  }
+
+  getMonday(d: Date) {
+    d = new Date(d);
+    var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+    return new Date(d.setDate(diff) + 6.048e+8);
+  }
+
+  onSubmit() {
+
+    this.bookingRequest.request_by_id = this.selectedRequestBy.id;
+    this.bookingRequest.request_for_id = this.selectedRequestFor.id;
+
+    this.bookingRequest.startDate = this.startDate;
+    this.bookingRequest.endDate = this.endDate;
+
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      this.floorAccess[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
     }
 
-    onSubmit(){
+    this.bookingRequest.accessFloors = this.floorAccess;
 
-      this.bookingRequest.request_by_id=this.selectedRequestBy.id;
-      this.bookingRequest.request_for_id=this.selectedRequestFor.id;
-  
-      this.bookingRequest.startDate=this.startDate;
-      this.bookingRequest.endDate=this.endDate;
+    this.bookingRequest.kitNeeded = this.selelectedKitRequired;
+    this.bookingRequest.status = this.status;
 
-      for (let i = 0; i < this.selectedItems.length; i++) {
-        this.floorAccess[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
-      }
-  
-      this.bookingRequest.accessFloors=this.floorAccess;
-  
-      this.bookingRequest.kitNeeded=this.selelectedKitRequired;
-      this.bookingRequest.status=this.status;
-  
 
-  
-      this.httpClient.post("http://localhost:8080/api/v1/booking",this.bookingRequest,this.httpOptions).subscribe(data => {
-   
-      })
 
-      this.router.navigate(['/administration']);
+    this.httpClient.post("http://localhost:8080/api/v1/booking", this.bookingRequest, this.httpOptions).subscribe(data => {
 
-    }
+    })
 
-    get f (){return this.form.controls}
+    this.router.navigate(['/administration']);
+
+  }
+
+  get f() { return this.form.controls }
 
 }

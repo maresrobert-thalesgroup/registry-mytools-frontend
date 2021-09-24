@@ -1,30 +1,30 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <h1 class="text-center" style="margin-top: 30px; margin-bottom: 30px; font-size: 48px;">Booking Requests</h1>
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Created For</th>
-            <th scope="col">From</th>
-            <th scope="col">Until</th>
-            <th>Respond</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let booking of bookingList">
-            <td>{{booking.id}}</td>
-            <td>{{booking.request_by.email}}</td>
-            <td>{{booking.request_for.email}}</td>
-            <td>{{booking.startDate.split("T")[0]}}</td>
-            <td>{{booking.endDate.split("T")[0]}}</td>
-            <td>
-              <button class="btn btn-info" (click)="updateBooking(booking.id,1)">Approve</button>
-              &nbsp;
-              <button class="btn btn-warning" (click)="updateBooking(booking.id,0)">Deny</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <h1 class="text-center" style="margin-top: 30px; margin-bottom: 30px; font-size: 48px;">Booking Requests</h1>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Created By</th>
+        <th scope="col">Created For</th>
+        <th scope="col">From</th>
+        <th scope="col">Until</th>
+        <th>Respond</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookingList">
+        <td>{{booking.id}}</td>
+        <td>{{booking.request_by.email}}</td>
+        <td>{{booking.request_for.email}}</td>
+        <td>{{booking.startDate.split("T")[0]}}</td>
+        <td>{{booking.endDate.split("T")[0]}}</td>
+        <td>
+          <button class="btn btn-info" (click)="updateBooking(booking.id,1)">Approve</button>
+          &nbsp;
+          <button class="btn btn-warning" (click)="updateBooking(booking.id,0)">Deny</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -8,9 +8,9 @@ describe('TeamManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamManagerComponent ]
+      declarations: [TeamManagerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

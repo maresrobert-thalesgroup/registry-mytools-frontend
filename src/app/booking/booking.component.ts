@@ -33,21 +33,21 @@ export class BookingComponent implements OnInit {
   kitNeeded: String = "";
   httpOptions: any;
   userData: any;
-  templateId:any;
-  template:any;
-  form:FormGroup;
-  userId:number;
-  templates:any;
-  selectedTemplate:any;
+  templateId: any;
+  template: any;
+  form: FormGroup;
+  userId: number;
+  templates: any;
+  selectedTemplate: any;
 
-  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute, private snackBar:MatSnackBar, private validationService:ValidationserviceService) {
+  constructor(private templateService: TemplateService, private httpClient: HttpClient, private route: ActivatedRoute, private snackBar: MatSnackBar, private validationService: ValidationserviceService) {
     validationService.validate();
-    this.form=new FormGroup({
-      'kitNeeded': new FormControl('',Validators.required),
-      'accesFloor': new FormControl('',Validators.required),   
-      'requestFor': new FormControl('',Validators.required)
+    this.form = new FormGroup({
+      'kitNeeded': new FormControl('', Validators.required),
+      'accesFloor': new FormControl('', Validators.required),
+      'requestFor': new FormControl('', Validators.required)
     });
-    
+
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -57,14 +57,13 @@ export class BookingComponent implements OnInit {
       })
     };
 
-    this.userId= Number(sessionStorage.getItem("id"));
+    this.userId = Number(sessionStorage.getItem("id"));
 
 
-    this.templateService.getTemplatesByUserId(this.userId).subscribe(data=>
-      {
-      this.templates=data;
-      });
-    
+    this.templateService.getTemplatesByUserId(this.userId).subscribe(data => {
+      this.templates = data;
+    });
+
 
     let packageEmail = { "email": sessionStorage.getItem('email') }
     this.httpClient.post<any>("http://localhost:8080/api/v1/profile", packageEmail, this.httpOptions).subscribe(data => {
@@ -85,53 +84,53 @@ export class BookingComponent implements OnInit {
 
         })
       }
-      
-        if (this.role==='ROLE_USER') {
+
+      if (this.role === 'ROLE_USER') {
         this.form.controls['requestFor'].clearValidators();
         this.form.controls['requestFor'].updateValueAndValidity();
-        }
-
-    if(this.route.snapshot.paramMap.get('templateId')!=null){
-    this.templateId=this.route.snapshot.paramMap.get('templateId');
-    this.templateService.getTemplateById(this.templateId).subscribe(data=>{
-      this.template=data;
-
-      this.name=this.template.requestBy.email;
-      this.gbu=this.template.requestBy.team.gbu.name;
-      this.team=this.template.requestBy.team.name;
-
-    this.selectedItems = [];
-
-    for (let i = 0; i < this.template.floorAccess.length; i++){ 
-      for (let j = 0; j < this.dropdownList.length; j++) {
-        if(this.template.floorAccess[i].toString() === this.dropdownList[j].item_text)
-          this.selectedItems.push(this.dropdownList[j]);
-      }
-    }
-
-
-    if (this.role === 'ROLE_MANAGER'){
-      
-      this.selectedEmployees = [];
-    
-      for (let i = 0; i < this.employeeDropdownList.length; i++) {
-        if(this.template.requestFor.email === this.employeeDropdownList[i].item_text)
-          this.selectedEmployees.push(this.employeeDropdownList[i]);
       }
 
-    }
+      if (this.route.snapshot.paramMap.get('templateId') != null) {
+        this.templateId = this.route.snapshot.paramMap.get('templateId');
+        this.templateService.getTemplateById(this.templateId).subscribe(data => {
+          this.template = data;
 
-      this.kitNeeded=this.template.kitRequired;
-      this.hasOfficeIncomeTraining=this.template.requestBy.hasOfficeIncomeTraining;
+          this.name = this.template.requestBy.email;
+          this.gbu = this.template.requestBy.team.gbu.name;
+          this.team = this.template.requestBy.team.name;
 
+          this.selectedItems = [];
+
+          for (let i = 0; i < this.template.floorAccess.length; i++) {
+            for (let j = 0; j < this.dropdownList.length; j++) {
+              if (this.template.floorAccess[i].toString() === this.dropdownList[j].item_text)
+                this.selectedItems.push(this.dropdownList[j]);
+            }
+          }
+
+
+          if (this.role === 'ROLE_MANAGER') {
+
+            this.selectedEmployees = [];
+
+            for (let i = 0; i < this.employeeDropdownList.length; i++) {
+              if (this.template.requestFor.email === this.employeeDropdownList[i].item_text)
+                this.selectedEmployees.push(this.employeeDropdownList[i]);
+            }
+
+          }
+
+          this.kitNeeded = this.template.kitRequired;
+          this.hasOfficeIncomeTraining = this.template.requestBy.hasOfficeIncomeTraining;
+
+        })
+      }
     })
   }
-})
-}
 
   ngOnInit(): void {
 
-    
+
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -168,34 +167,34 @@ export class BookingComponent implements OnInit {
     return new Date(d.setDate(diff) + 6.048e+8);
   }
 
-  get f (){return this.form.controls}
+  get f() { return this.form.controls }
 
-  applyTemplate(){
+  applyTemplate() {
 
     this.selectedItems = [];
 
-    for (let i = 0; i < this.selectedTemplate.floorAccess.length; i++){ 
+    for (let i = 0; i < this.selectedTemplate.floorAccess.length; i++) {
       for (let j = 0; j < this.dropdownList.length; j++) {
-        if(this.selectedTemplate.floorAccess[i].toString() === this.dropdownList[j].item_text)
+        if (this.selectedTemplate.floorAccess[i].toString() === this.dropdownList[j].item_text)
           this.selectedItems.push(this.dropdownList[j]);
       }
     }
-    
 
-    this.kitNeeded=this.selectedTemplate.kitRequired;
 
-    if (this.role === 'ROLE_MANAGER'){
-      
+    this.kitNeeded = this.selectedTemplate.kitRequired;
+
+    if (this.role === 'ROLE_MANAGER') {
+
       this.selectedEmployees = [];
-    
+
       for (let i = 0; i < this.employeeDropdownList.length; i++) {
-        if(this.selectedTemplate.requestFor === this.employeeDropdownList[i].item_text)
+        if (this.selectedTemplate.requestFor === this.employeeDropdownList[i].item_text)
           this.selectedEmployees.push(this.employeeDropdownList[i]);
       }
 
     }
-    
-  } 
+
+  }
 
   done() {
     let floors: number[] = [];
@@ -205,8 +204,8 @@ export class BookingComponent implements OnInit {
     let bookingPackage: any = {
       "request_by_id": this.userData.id,
       "request_for_id": this.role === "ROLE_USER" ? this.userData.id : this.selectedEmployees[0].item_id,
-      "startDate": this.startDate.getTime() + 1000*60*60*3,
-      "endDate": this.endDate.getTime() + 1000*60*60*3,
+      "startDate": this.startDate.getTime() + 1000 * 60 * 60 * 3,
+      "endDate": this.endDate.getTime() + 1000 * 60 * 60 * 3,
       "accessFloors": floors,
       "kitNeeded": this.kitNeeded,
       "status": this.role === "ROLE_USER" ? 2 : 1
@@ -215,7 +214,7 @@ export class BookingComponent implements OnInit {
     this.httpClient.post("http://localhost:8080/api/v1/booking", bookingPackage, this.httpOptions).subscribe(data => {
 
     })
-    this.snackBar.open("Booking sent succesfully! View in my bookings","ok",{duration:3000});
+    this.snackBar.open("Booking sent succesfully! View in my bookings", "ok", { duration: 3000 });
   }
 }
 

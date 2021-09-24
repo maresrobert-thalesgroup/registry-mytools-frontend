@@ -8,12 +8,12 @@ import { AuthenticationService } from './authentication.service';
 })
 export class ValidationserviceService {
 
-  httpOptions:any;
+  httpOptions: any;
 
-  constructor(private httpClient:HttpClient, private authenticationService:AuthenticationService, private router:Router) {
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService, private router: Router) {
   }
 
-  validate(){
+  validate() {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -25,16 +25,16 @@ export class ValidationserviceService {
     };
 
     let validationRequest = {
-      "email":sessionStorage.getItem("email"),
-      "role":sessionStorage.getItem("role")
+      "email": sessionStorage.getItem("email"),
+      "role": sessionStorage.getItem("role")
     }
 
     this.httpClient.post("http://localhost:8080/validate", validationRequest, this.httpOptions).subscribe(data => {
 
-      if(!data){
+      if (!data) {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
-      } 
+      }
     })
   }
 }

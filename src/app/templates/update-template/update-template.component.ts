@@ -42,7 +42,7 @@ export class UpdateTemplateComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient, private snackBar: MatSnackBar,private validationService:ValidationserviceService) {
+  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient, private snackBar: MatSnackBar, private validationService: ValidationserviceService) {
     validationService.validate();
 
     this.form = new FormGroup({
@@ -99,7 +99,7 @@ export class UpdateTemplateComponent implements OnInit {
 
     this.templateService.getTemplateById(this.id).subscribe(
       data => {
-    
+
         this.template = data;
         this.gbu = this.template.requestBy.team.gbu.name;
         this.team = this.template.requestBy.team.name;
@@ -113,7 +113,7 @@ export class UpdateTemplateComponent implements OnInit {
               this.selectedItems.push(this.dropdownList[j]);
           }
         }
-   
+
 
         //this.selectedItems = this.template.floorAccess;
 
@@ -122,7 +122,7 @@ export class UpdateTemplateComponent implements OnInit {
         this.selelectedKitRequired = this.template.kitRequired;
 
 
-    
+
 
         if (this.role === 'ROLE_USER') {
           this.manager = "No manager to display";
@@ -141,16 +141,16 @@ export class UpdateTemplateComponent implements OnInit {
             this.selectedEmployees = [];
 
             for (let i = 0; i < this.employeeDropdownList.length; i++) {
-              if(this.template.requestFor.email === this.employeeDropdownList[i].item_text)
+              if (this.template.requestFor.email === this.employeeDropdownList[i].item_text)
                 this.selectedEmployees.push(this.employeeDropdownList[i]);
             }
-         
+
           })
 
         }
 
       },
-      error => {});
+      error => { });
 
   }
 
@@ -170,9 +170,9 @@ export class UpdateTemplateComponent implements OnInit {
 
 
     this.templateService.updateTemplate(this.template.id, this.templateRequest).subscribe(
-      data => {}, error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
+      data => { }, error => this.snackBar.open(error.error.message, "ok", { duration: 3000 }));
     this.router.navigate(['/navbartemplates/templateslist']);
- 
+
   }
 
   onItemSelect(item: any) {

@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  email:String = sessionStorage.getItem("email") + "";
-  role:String = sessionStorage.getItem("role") + "";
+  email: String = sessionStorage.getItem("email") + "";
+  role: String = sessionStorage.getItem("role") + "";
 
   constructor() { }
 

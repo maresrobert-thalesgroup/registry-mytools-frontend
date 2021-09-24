@@ -13,67 +13,68 @@ import { ValidationserviceService } from 'src/app/service/validationservice.serv
 export class TemplatesListComponent implements OnInit {
 
   //templates:Observable<ApiResponse>;
-  templates:any;
+  templates: any;
   floors: String[] = [];
-  userId:number;
-  dataLoaded:boolean=false;
-  templates2:Observable<any>;
-  sub:Subscription;
+  userId: number;
+  dataLoaded: boolean = false;
+  templates2: Observable<any>;
+  sub: Subscription;
 
-  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute, private validationService:ValidationserviceService) {
+  constructor(private templateService: TemplateService, private router: Router, private route: ActivatedRoute, private validationService: ValidationserviceService) {
     validationService.validate();
-   }
+  }
 
   ngOnInit(): void {
 
-    this.userId= Number(sessionStorage.getItem("id"));
+    this.userId = Number(sessionStorage.getItem("id"));
 
-    this.templates2=this.templateService.getTemplatesByUserId(this.userId);
+    this.templates2 = this.templateService.getTemplatesByUserId(this.userId);
 
 
-     this.sub=this.templates2.subscribe(
-       data=>{
-       //this.templatesObs.
-       //this.dataLoaded=true;
-     
-   },
-   error=>  console.error(error));
-     $(function(){
-       $('#datatable-example').DataTable();
-     });
+    this.sub = this.templates2.subscribe(
+      data => {
+        //this.templatesObs.
+        //this.dataLoaded=true;
+
+      },
+      error => console.error(error));
+    $(function () {
+      $('#datatable-example').DataTable();
+    });
   }
-/*
-  ngOnChanges(changes: SimpleChanges) {
-    // only run when property "data" changed
-    if (changes['templates']) {
-        //  This is always outputting my original insights, not the filtered list
-  
-    }
-}
-*/
+  /*
+    ngOnChanges(changes: SimpleChanges) {
+      // only run when property "data" changed
+      if (changes['templates']) {
+          //  This is always outputting my original insights, not the filtered list
+    
+      }
+  }
+  */
 
-   ngOnDestroy(){
+  ngOnDestroy() {
     this.sub.unsubscribe();
-   }
+  }
 
-  deleteTemplate(id:number){
+  deleteTemplate(id: number) {
 
     this.templateService.deleteTemplate(id).subscribe(
-      data=>{
+      data => {
         this.templateService.getTemplatesByUserId(this.userId).subscribe(
-          data=>{
-          this.templates=data;});
-  },
-  error=>  console.error(error));
-}
-
-  updateTemplate(id:number){
-    this.router.navigate(['/navbartemplates/updatetemplate',id]);
+          data => {
+            this.templates = data;
+          });
+      },
+      error => console.error(error));
   }
 
-  applyTemplate(id:number){
-    this.router.navigate(['/bookadesk',{templateId:id}]);
+  updateTemplate(id: number) {
+    this.router.navigate(['/navbartemplates/updatetemplate', id]);
   }
-  
+
+  applyTemplate(id: number) {
+    this.router.navigate(['/bookadesk', { templateId: id }]);
+  }
+
 
 }

@@ -13,15 +13,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { BookingComponent } from './booking/booking.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { BookingRequestComponent } from './booking-request/booking-request.component';
 import { CreateTemplateComponent } from './templates/create-template/create-template.component';
 import { UpdateTemplateComponent } from './templates/update-template/update-template.component';
@@ -29,14 +29,14 @@ import { TemplatesListComponent } from './templates/templates-list/templates-lis
 import { TemplateService } from './service/template.service';
 import { DataTablesModule } from 'angular-datatables';
 import { NavbartemplatesComponent } from './navbartemplates/navbartemplates.component';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeamManagerComponent } from './team-manager/team-manager.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { AdministrationComponent } from './administration/administration.component';
 import { UpdatebookingComponent } from './updatebooking/updatebooking.component';
 import { AddbookingComponent } from './addbooking/addbooking.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [

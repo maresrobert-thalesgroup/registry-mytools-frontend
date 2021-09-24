@@ -9,6 +9,7 @@ import { ApiResponse } from 'src/app/model/api.response';
 import { Template } from 'src/app/model/template.model';
 import { TemplateRequest } from 'src/app/model/template_request.model';
 import { TemplateService } from 'src/app/service/template.service';
+import { ValidationserviceService } from 'src/app/service/validationservice.service';
 
 @Component({
   selector: 'app-update-template',
@@ -41,7 +42,8 @@ export class UpdateTemplateComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient, private snackBar: MatSnackBar,private validationService:ValidationserviceService) {
+    validationService.validate();
 
     this.form = new FormGroup({
       'kitNeeded': new FormControl('', Validators.required),

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-administration',
@@ -13,7 +14,9 @@ export class AdministrationComponent implements OnInit {
   bookingList:any = [];
   isLoaded:boolean=false;
 
-  constructor(private httpClient:HttpClient, private router:Router) { }
+  constructor(private httpClient:HttpClient, private router:Router, private validationService:ValidationserviceService) {
+    validationService.validate();
+  }
 
   ngOnInit(): void {
     this.httpOptions = {

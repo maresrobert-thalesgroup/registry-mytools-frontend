@@ -9,6 +9,7 @@
 
         <thead>
           <tr>
+            <th>Template name</th>
             <th >Request by</th>
             <th >Request for</th>
             <th >GBU</th>
@@ -23,6 +24,7 @@
         <tbody>     
 
        <tr *ngFor="let template of templates2 | async ">  
+            <td>T-{{template.requestFor.split('@')[0]}}-{{template.floorAccess}}-{{template.kitRequired}}</td>
             <td>{{template.requestBy}}</td>
             <td>{{template.requestFor}}</td>
             <td>{{template.gbu}}</td>

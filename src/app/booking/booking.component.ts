@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { TemplateService } from '../service/template.service';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-booking',
@@ -39,8 +40,8 @@ export class BookingComponent implements OnInit {
   templates:any;
   selectedTemplate:any;
 
-  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute, private snackBar:MatSnackBar) {
-
+  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute, private snackBar:MatSnackBar, private validationService:ValidationserviceService) {
+    validationService.validate();
     this.form=new FormGroup({
       'kitNeeded': new FormControl('',Validators.required),
       'accesFloor': new FormControl('',Validators.required),   

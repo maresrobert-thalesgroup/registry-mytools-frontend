@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscribable, Subscription } from 'rxjs';
 import { ApiResponse } from 'src/app/model/api.response';
 import { TemplateService } from 'src/app/service/template.service';
+import { ValidationserviceService } from 'src/app/service/validationservice.service';
 
 @Component({
   selector: 'app-templates-list',
@@ -19,8 +20,8 @@ export class TemplatesListComponent implements OnInit {
   templates2:Observable<any>;
   sub:Subscription;
 
-  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute) {
-
+  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute, private validationService:ValidationserviceService) {
+    validationService.validate();
    }
 
   ngOnInit(): void {

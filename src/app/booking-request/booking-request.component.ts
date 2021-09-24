@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-booking-request',
@@ -10,7 +11,8 @@ export class BookingRequestComponent implements OnInit {
   
   bookingList:any = [];
   httpOptions:any;
-  constructor(private httpClient:HttpClient) {
+  constructor(private httpClient:HttpClient, private validationService:ValidationserviceService) {
+    validationService.validate();
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

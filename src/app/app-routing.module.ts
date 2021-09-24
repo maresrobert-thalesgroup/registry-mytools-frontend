@@ -20,7 +20,7 @@ import { UpdatebookingComponent } from './updatebooking/updatebooking.component'
 import { UserprofileComponent } from './userprofile/userprofile.component';
 
 const routes: Routes = [
-
+  { path: "", component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent, canActivate: [AuthGuardService] },
   { path: "signup", component: RegisterformComponent },

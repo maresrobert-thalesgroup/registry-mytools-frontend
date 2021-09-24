@@ -9,6 +9,7 @@ import { TemplateRequest } from 'src/app/model/template_request.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ValidationserviceService } from 'src/app/service/validationservice.service';
 
 @Component({
   selector: 'app-create-template',
@@ -43,7 +44,8 @@ export class CreateTemplateComponent implements OnInit {
   team:any;
   
 
-  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient, private snackBar:MatSnackBar) {
+  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient, private snackBar:MatSnackBar, private validationService:ValidationserviceService) {
+    validationService.validate();
     
     this.form=new FormGroup({
       'kitNeeded': new FormControl('',Validators.required),

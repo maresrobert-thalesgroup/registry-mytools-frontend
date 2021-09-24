@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { BookingRequest } from '../model/booking_request.model';
 import { NavbartemplatesComponent } from '../navbartemplates/navbartemplates.component';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-updatebooking',
@@ -40,7 +41,8 @@ export class UpdatebookingComponent implements OnInit {
   form:FormGroup;
   userRole: String = sessionStorage.getItem("role") + "";
 
-  constructor(private router:Router,private httpClient:HttpClient,private route:ActivatedRoute) { 
+  constructor(private router:Router,private httpClient:HttpClient,private route:ActivatedRoute, private validationService:ValidationserviceService) { 
+    validationService.validate();
     this.form=new FormGroup({
   
       'requestBy': new FormControl('',Validators.required),

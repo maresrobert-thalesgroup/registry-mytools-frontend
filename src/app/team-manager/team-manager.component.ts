@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-team-manager',
@@ -12,7 +13,9 @@ export class TeamManagerComponent implements OnInit {
   bookingList:any = [];
   printedListUpcoming:any = [];
 
-  constructor(private httpClient:HttpClient, private router:Router) { }
+  constructor(private httpClient:HttpClient, private router:Router, private validationService:ValidationserviceService) {
+    validationService.validate();
+  }
 
   ngOnInit(): void {
     this.httpOptions = {

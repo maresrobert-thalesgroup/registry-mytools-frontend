@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   selected:String = "All";
   selectedSort:String = "Oldest to Newest"
 
-  constructor(private httpClient: HttpClient, private router:Router) {
+  constructor(private httpClient: HttpClient, private router:Router, private validationService:ValidationserviceService) {
+    validationService.validate();
 
     if(sessionStorage.getItem('role') === "ROLE_ADMIN")
     this.router.navigate(["/administration"]);

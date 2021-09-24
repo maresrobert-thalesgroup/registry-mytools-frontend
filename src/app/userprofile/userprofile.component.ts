@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VirtualTimeScheduler } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AnimationStyleMetadata } from '@angular/animations';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -24,7 +25,9 @@ export class UserprofileComponent implements OnInit {
   hasOfficeIncomeTraining:any;
 
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private validationService:ValidationserviceService) {
+    validationService.validate();
+  }
 
   ngOnInit(): void {
     this.getUserProfile();

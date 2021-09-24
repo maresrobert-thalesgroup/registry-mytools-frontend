@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { BookingRequest } from '../model/booking_request.model';
+import { ValidationserviceService } from '../service/validationservice.service';
 
 @Component({
   selector: 'app-addbooking',
@@ -37,7 +38,8 @@ export class AddbookingComponent implements OnInit {
   form:FormGroup;
 
   
-  constructor(private httpClient:HttpClient, private router:Router) {
+  constructor(private httpClient:HttpClient, private router:Router, private validationService:ValidationserviceService) {
+    validationService.validate();
 
     this.form=new FormGroup({
   

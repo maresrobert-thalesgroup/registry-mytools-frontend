@@ -35,7 +35,7 @@ export class AdministrationComponent implements OnInit {
   getAllBookings(){
     this.httpClient.get("http://localhost:8080/api/v1/booking",this.httpOptions).subscribe(data => {
       this.bookingList = data;
-      console.log(this.bookingList);
+
       this.isLoaded=true;
     })
   }
@@ -54,9 +54,9 @@ export class AdministrationComponent implements OnInit {
 
   deleteBooking(id:number){
 
-    console.log(id);
+
     this.httpClient.delete("http://localhost:8080/api/v1/booking/delete/" + id,this.httpOptions).subscribe(data=>{
-      console.log(data);
+
       //this.bookingList = this.bookingList.filter((b:any)=>b.id !== id);
       this.getAllBookings();
     })

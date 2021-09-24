@@ -59,9 +59,9 @@ export class BookingComponent implements OnInit {
 
     this.userId= Number(sessionStorage.getItem("id"));
 
-    console.log(this.userId);
+
     this.templateService.getTemplatesByUserId(this.userId).subscribe(data=>
-      {console.log(data);
+      {
       this.templates=data;
       });
     
@@ -82,7 +82,7 @@ export class BookingComponent implements OnInit {
             tempList.push({ item_id: e.id, item_text: e.email });
           }
           this.employeeDropdownList = tempList;
-          console.log(this.employeeDropdownList);
+
         })
       }
       
@@ -95,7 +95,7 @@ export class BookingComponent implements OnInit {
     this.templateId=this.route.snapshot.paramMap.get('templateId');
     this.templateService.getTemplateById(this.templateId).subscribe(data=>{
       this.template=data;
-      console.log(data);
+
       this.name=this.template.requestBy.email;
       this.gbu=this.template.requestBy.team.gbu.name;
       this.team=this.template.requestBy.team.name;
@@ -108,7 +108,7 @@ export class BookingComponent implements OnInit {
           this.selectedItems.push(this.dropdownList[j]);
       }
     }
-    console.log(this.selectedItems);
+
 
     if (this.role === 'ROLE_MANAGER'){
       
@@ -118,7 +118,7 @@ export class BookingComponent implements OnInit {
         if(this.template.requestFor.email === this.employeeDropdownList[i].item_text)
           this.selectedEmployees.push(this.employeeDropdownList[i]);
       }
-      console.log(this.selectedEmployees);
+
     }
 
       this.kitNeeded=this.template.kitRequired;
@@ -154,10 +154,10 @@ export class BookingComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+
   }
   onSelectAll(items: any) {
-    console.log(items);
+
 
   }
 
@@ -180,7 +180,7 @@ export class BookingComponent implements OnInit {
           this.selectedItems.push(this.dropdownList[j]);
       }
     }
-    console.log(this.selectedItems);
+    
 
     this.kitNeeded=this.selectedTemplate.kitRequired;
 
@@ -192,7 +192,7 @@ export class BookingComponent implements OnInit {
         if(this.selectedTemplate.requestFor === this.employeeDropdownList[i].item_text)
           this.selectedEmployees.push(this.employeeDropdownList[i]);
       }
-      console.log(this.selectedEmployees);
+
     }
     
   } 
@@ -211,9 +211,9 @@ export class BookingComponent implements OnInit {
       "kitNeeded": this.kitNeeded,
       "status": this.role === "ROLE_USER" ? 2 : 1
     }
-    console.log(bookingPackage);
+
     this.httpClient.post("http://localhost:8080/api/v1/booking", bookingPackage, this.httpOptions).subscribe(data => {
-      console.log(data);
+
     })
     this.snackBar.open("Booking sent succesfully! View in my bookings","ok",{duration:3000});
   }

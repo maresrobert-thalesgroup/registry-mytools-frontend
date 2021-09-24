@@ -79,13 +79,13 @@ export class UpdatebookingComponent implements OnInit {
 
     this.httpClient.get("http://localhost:8080/api/v1/profile/users", this.httpOptions).subscribe(data => {
       this.requestByList = data;
-      console.log(this.requestByList);
+
     })
 
     this.id = this.route.snapshot.params['id'];
     this.httpClient.get("http://localhost:8080/api/v1/booking/" + this.id, this.httpOptions).subscribe(data => {
       this.booking = data;
-      console.log(this.booking);
+
 
       for (let i = 0; i < this.requestByList.length; i++) {
         if (this.requestByList[i].email == this.booking.request_by.email)
@@ -98,15 +98,15 @@ export class UpdatebookingComponent implements OnInit {
 
       this.startDate = this.booking.startDate;
       this.endDate = this.booking.endDate;
-      console.log(this.startDate, this.endDate);
+ 
 
       /*
       for(let i:number = 0; i<this.booking.accessFloors.length; i++){
         this.selectedItems.push({ item_id: i, item_text: this.booking.accessFloors[i] })
       }
       // this.selectedItems = this.booking.accessFloors;
-      console.log("SEL ITEMS")
-      console.log(this.selectedItems);
+  
+
       */
 
       this.selectedItems = [];
@@ -117,13 +117,13 @@ export class UpdatebookingComponent implements OnInit {
             this.selectedItems.push(this.dropdownList[j]);
         }
       }
-      console.log(this.selectedItems);
+
 
       this.selelectedKitRequired = this.booking.kitNeeded;
-      console.log(this.selelectedKitRequired);
+;
 
       this.status = this.booking.status;
-      console.log(this.booking.status);
+
     })
 
 
@@ -133,9 +133,9 @@ export class UpdatebookingComponent implements OnInit {
   getRequestFor(teamId: any) {
     this.httpClient.get("http://localhost:8080/api/v1/profile/" + teamId, this.httpOptions).subscribe(data => {
       this.requestForList = data;
-      console.log(this.requestForList);
 
-      console.log("Request for list is: ",this.requestForList);
+
+     
 
       for (let i = 0; i < this.requestForList.length; i++) {
         if (this.requestForList[i].email == this.booking.request_for.email)
@@ -148,10 +148,10 @@ export class UpdatebookingComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+
   }
   onSelectAll(items: any) {
-    console.log(items);
+
   }
 
   getMonday(d: Date) {
@@ -162,14 +162,14 @@ export class UpdatebookingComponent implements OnInit {
   }
 
   updateRequestFor(requestBy: any) {
-    console.log(requestBy.role);
+
     if (requestBy.role == "ROLE_USER") {
       this.requestForList = [];
       this.requestForList[0] = requestBy;
 
       for (let i = 0; i < this.requestForList.length; i++) {
         if (this.requestForList[i].email == this.booking.request_for.email)
-          console.log(this.requestForList[i].email, this.booking.request_for.email);
+ 
         this.selectedRequestFor = this.requestForList[i];
       }
 
@@ -189,7 +189,7 @@ export class UpdatebookingComponent implements OnInit {
     this.bookingRequest.startDate = new Date(dummyStartDate.getTime() + (1000*60*60*3));
     this.bookingRequest.endDate = new Date(dummyEndDate.getTime() + (1000*60*60*3));
 
-    console.log(this.selectedItems);
+
     for (let i = 0; i < this.selectedItems.length; i++) {
       this.floorAccess[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
     }
@@ -198,10 +198,10 @@ export class UpdatebookingComponent implements OnInit {
     this.bookingRequest.kitNeeded = this.selelectedKitRequired;
     this.bookingRequest.status = this.status;
 
-    console.log(this.bookingRequest);
+    
 
     this.httpClient.put("http://localhost:8080/api/v1/booking/" + this.booking.id, this.bookingRequest, this.httpOptions).subscribe(data => {
-      console.log(data);
+
       if(sessionStorage.getItem('role')==='ROLE_MANAGER') this.router.navigate(['/teamman']);
       else this.router.navigate(['/administration']);
     })

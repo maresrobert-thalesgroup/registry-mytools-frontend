@@ -76,7 +76,7 @@ export class AddbookingComponent implements OnInit {
 
     this.httpClient.get("http://localhost:8080/api/v1/profile/users",this.httpOptions).subscribe(data => {
       this.requestByList = data;
-      console.log(this.requestByList);
+
     })
 
 
@@ -84,14 +84,14 @@ export class AddbookingComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+
   }
   onSelectAll(items: any) {
-    console.log(items);
+
   }
 
   updateRequestFor(requestBy:any){
-    console.log(requestBy.role);
+
     if(requestBy.role=="ROLE_USER"){
         this.requestForList=[];
         this.requestForList[0]=requestBy;
@@ -100,13 +100,13 @@ export class AddbookingComponent implements OnInit {
     if(requestBy.role=="ROLE_MANAGER"){
     this.getRequestFor(requestBy.team.id);
     }
-    console.log(this.selectedRequestFor);
+
     }
 
     getRequestFor(teamId:any){
       this.httpClient.get("http://localhost:8080/api/v1/profile/"+teamId,this.httpOptions).subscribe(data => {
         this.requestForList = data;
-        console.log(this.requestForList);
+
       })
     }
 
@@ -134,10 +134,10 @@ export class AddbookingComponent implements OnInit {
       this.bookingRequest.kitNeeded=this.selelectedKitRequired;
       this.bookingRequest.status=this.status;
   
-      console.log(this.bookingRequest);
+
   
       this.httpClient.post("http://localhost:8080/api/v1/booking",this.bookingRequest,this.httpOptions).subscribe(data => {
-        console.log(data);
+   
       })
 
       this.router.navigate(['/administration']);

@@ -35,7 +35,6 @@ export class UserprofileComponent implements OnInit {
 
   getUserProfile(){
 
-    console.log(sessionStorage.getItem('token'));
 
     this.httpOptions = {
       headers: new HttpHeaders({ 
@@ -51,7 +50,6 @@ export class UserprofileComponent implements OnInit {
     this.emailRequest = {"email": sessionStorage.getItem('email')}
     this.httpClient.post("http://localhost:8080/api/v1/profile",this.emailRequest,this.httpOptions).subscribe(data=>{
       this.userProfile=data;
-      console.log(this.userProfile);   
       this.email=this.userProfile.email;
       this.firstName=this.userProfile.firstName;
       this.lastName=this.userProfile.lastName;

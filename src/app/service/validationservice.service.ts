@@ -30,7 +30,7 @@ export class ValidationserviceService {
     }
 
     this.httpClient.post("http://localhost:8080/validate", validationRequest, this.httpOptions).subscribe(data => {
-      console.log(data);
+
       if(!data){
         this.authenticationService.logout();
         this.router.navigate(['/login']);

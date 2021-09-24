@@ -49,7 +49,7 @@ export class AuthenticationService {
 
   isUserLoggedIn(){
     let user = sessionStorage.getItem("email");
-    console.log(!(user === null));
+
     return !(user === null);
   }
 

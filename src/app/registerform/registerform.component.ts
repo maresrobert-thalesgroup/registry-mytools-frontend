@@ -81,7 +81,7 @@ export class RegisterformComponent implements OnInit {
   submitData(){
     this.emailInUse = false;
 
-    console.log(this.registerForm.value)
+
 
     if(this.registerForm.valid)
     {
@@ -89,7 +89,7 @@ export class RegisterformComponent implements OnInit {
       this.registerForm.controls['team'].setValue(teamId[0].id);
       this.httpClient.post<any>("http://localhost:8080/api/v1/registration", this.registerForm.value).subscribe(
         data=>{
-          console.log(data);
+
           this.authenticationService.authenticate(this.registerForm.get(["email"])?.value, this.registerForm.get(["password"])?.value).subscribe(
             data=>{
               this.router.navigate(['']);
@@ -99,9 +99,9 @@ export class RegisterformComponent implements OnInit {
         error=>{
           if(error.status === 500){
             this.emailInUse = true;
-            console.log(error);
+
           } else{
-            console.log(error);
+
           }
         }
       )

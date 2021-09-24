@@ -13,7 +13,7 @@ export class TemplateService {
   httpOptions:any;
 
   constructor(private http: HttpClient) {
-    console.log(sessionStorage.getItem('token'));
+
     this.httpOptions = {
       headers: new HttpHeaders({ 
       'Content-Type': 'application/json',

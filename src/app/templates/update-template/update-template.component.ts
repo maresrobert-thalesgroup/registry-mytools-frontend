@@ -83,7 +83,7 @@ export class UpdateTemplateComponent implements OnInit {
 
 
   getTemplate() {
-    console.log(sessionStorage.getItem('token'));
+
 
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -99,7 +99,7 @@ export class UpdateTemplateComponent implements OnInit {
 
     this.templateService.getTemplateById(this.id).subscribe(
       data => {
-        console.log(data)
+    
         this.template = data;
         this.gbu = this.template.requestBy.team.gbu.name;
         this.team = this.template.requestBy.team.name;
@@ -113,7 +113,7 @@ export class UpdateTemplateComponent implements OnInit {
               this.selectedItems.push(this.dropdownList[j]);
           }
         }
-        console.log(this.selectedItems);
+   
 
         //this.selectedItems = this.template.floorAccess;
 
@@ -121,8 +121,8 @@ export class UpdateTemplateComponent implements OnInit {
         this.hasOfficeIncomeTraining = this.template.requestBy.hasOfficeIncomeTraining;
         this.selelectedKitRequired = this.template.kitRequired;
 
-        console.log(this.teamId);
-        console.log(this.role);
+
+    
 
         if (this.role === 'ROLE_USER') {
           this.manager = "No manager to display";
@@ -136,7 +136,7 @@ export class UpdateTemplateComponent implements OnInit {
               tempList.push({ item_id: e.id, item_text: e.email });
             }
             this.employeeDropdownList = tempList;
-            console.log("employeeDropdownList",this.employeeDropdownList);
+
 
             this.selectedEmployees = [];
 
@@ -144,13 +144,13 @@ export class UpdateTemplateComponent implements OnInit {
               if(this.template.requestFor.email === this.employeeDropdownList[i].item_text)
                 this.selectedEmployees.push(this.employeeDropdownList[i]);
             }
-            console.log(this.selectedEmployees);
+         
           })
 
         }
 
       },
-      error => console.log(error));
+      error => {});
 
   }
 
@@ -159,7 +159,7 @@ export class UpdateTemplateComponent implements OnInit {
     this.templateRequest.requestById = this.template.requestBy.id;
     this.templateRequest.requestForId = this.role === "ROLE_USER" ? this.template.requestFor.id : this.selectedEmployees[0].item_id;
 
-    console.log(this.selectedItems);
+
 
     for (let i = 0; i < this.selectedItems.length; i++) {
       this.floorAcces[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
@@ -168,19 +168,18 @@ export class UpdateTemplateComponent implements OnInit {
     this.templateRequest.floorAccess = this.floorAcces;
     this.templateRequest.kitRequired = this.selelectedKitRequired;
 
-    console.log(this.templateRequest);
-    console.log(this.template.id);
+
     this.templateService.updateTemplate(this.template.id, this.templateRequest).subscribe(
-      data => console.log(data), error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
+      data => {}, error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
     this.router.navigate(['/navbartemplates/templateslist']);
-    //console.log(this.template);
+ 
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+
   }
   onSelectAll(items: any) {
-    console.log(items);
+
 
   }
 

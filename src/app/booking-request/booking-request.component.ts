@@ -26,13 +26,13 @@ export class BookingRequestComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient.post("http://localhost:8080/api/v1/booking/bookingreq",{"email":sessionStorage.getItem("email")},this.httpOptions).subscribe(data =>{
       this.bookingList = data;
-      console.log(this.bookingList);
+
     })
   }
 
   updateBooking(id:number, status:number){
     this.httpClient.put("http://localhost:8080/api/v1/booking/update/"+id,{"status":status},this.httpOptions).subscribe(data => {
-      console.log(data);
+
       this.bookingList = this.bookingList.filter((b:any) => b.id !== id);
     })
   }

@@ -30,9 +30,9 @@ export class TemplatesListComponent implements OnInit {
 
     this.templates2=this.templateService.getTemplatesByUserId(this.userId);
 
-    console.log(this.userId);
+
      this.sub=this.templates2.subscribe(
-       data=>{console.log(data);
+       data=>{
        //this.templatesObs.
        //this.dataLoaded=true;
      
@@ -47,7 +47,7 @@ export class TemplatesListComponent implements OnInit {
     // only run when property "data" changed
     if (changes['templates']) {
         //  This is always outputting my original insights, not the filtered list
-        console.log(this.templates)
+  
     }
 }
 */
@@ -57,11 +57,11 @@ export class TemplatesListComponent implements OnInit {
    }
 
   deleteTemplate(id:number){
-    console.log(id);
+
     this.templateService.deleteTemplate(id).subscribe(
-      data=>{console.log(data);
+      data=>{
         this.templateService.getTemplatesByUserId(this.userId).subscribe(
-          data=>{console.log(data);
+          data=>{
           this.templates=data;});
   },
   error=>  console.error(error));

@@ -91,14 +91,13 @@ export class CreateTemplateComponent implements OnInit {
       this.floorAcces[i] = parseInt(this.selectedItems[i].item_text); //use i instead of 0
     }
     
-    console.log(this.floorAcces);
+
     this.template.floorAccess = this.floorAcces;
     this.template.kitRequired = this.selelectedKitRequired;
     this.submitted = true;
-    console.log(this.template);
 
     this.templateService.createTemplate(this.template).subscribe(
-      data => console.log(data), error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
+      data => {}, error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
     this.template = new TemplateRequest();
     this.router.navigate(['/navbartemplates/templateslist']);
 
@@ -106,7 +105,6 @@ export class CreateTemplateComponent implements OnInit {
 
   getUserProfile() {
 
-    console.log(sessionStorage.getItem('token'));
 
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -126,7 +124,7 @@ export class CreateTemplateComponent implements OnInit {
       this.gbu=this.userProfile.team.gbu.name;
       this.team=this.userProfile.team.name;
 
-      console.log(this.userProfile);
+
       if (this.role === 'ROLE_USER') {
         this.manager = this.userProfile.manager.email ? this.userProfile.manager.email : "No manager to display";
       } else if (this.role === 'ROLE_MANAGER') {
@@ -137,7 +135,7 @@ export class CreateTemplateComponent implements OnInit {
             tempList.push({ item_id: e.id, item_text: e.email });
           }
           this.employeeDropdownList = tempList;
-          console.log(this.employeeDropdownList);
+     
           this.employeeDropdownList=this.employeeDropdownList.filter((b:any)=> b.item_text !== sessionStorage.getItem("email")+"");
         })
       }
@@ -152,12 +150,12 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
 
-    console.log(this.findInvalidControls());
+
+
   }
   onSelectAll(items: any) {
-    console.log(items);
+
     
 
   }

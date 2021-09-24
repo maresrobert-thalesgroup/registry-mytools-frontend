@@ -34,8 +34,9 @@ export class TemplateService {
     return this.http.get(this.baseUrl + "/" + id,this.httpOptions);
   }
 
-  getTemplatesByUserId(id: number){
-    return this.http.get(this.baseUrl+"/list" + "/" + id,this.httpOptions);
+  getTemplatesByUserId(id: number) : Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/list" + "/" + id,this.httpOptions);
+    
   }
 
   createTemplate(template: TemplateRequest){

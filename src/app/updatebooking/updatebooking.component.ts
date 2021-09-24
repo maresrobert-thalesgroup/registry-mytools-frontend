@@ -139,7 +139,10 @@ export class UpdatebookingComponent implements OnInit {
         if (this.requestForList[i].email == this.booking.request_for.email)
           this.selectedRequestFor = this.requestForList[i];
       }
+
     })
+
+
   }
 
   onItemSelect(item: any) {

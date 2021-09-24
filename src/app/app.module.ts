@@ -36,6 +36,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AdministrationComponent } from './administration/administration.component';
 import { UpdatebookingComponent } from './updatebooking/updatebooking.component';
 import { AddbookingComponent } from './addbooking/addbooking.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { AddbookingComponent } from './addbooking/addbooking.component';
     TeamManagerComponent,
     AdministrationComponent,
     UpdatebookingComponent,
-    AddbookingComponent
+    AddbookingComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +76,8 @@ import { AddbookingComponent } from './addbooking/addbooking.component';
     MatFormFieldModule,
     DataTablesModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [TemplateService],
   bootstrap: [AppComponent]

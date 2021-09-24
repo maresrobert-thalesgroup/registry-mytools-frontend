@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<div *ngIf="isLoaded===true">
 <div class="container">
     <h1 class="text-center" style="margin-top: 35px; margin-bottom: 35px; font-size: 48px;">Desk bookings</h1>
     <table class="table">
@@ -31,5 +32,6 @@
         </tbody>
       </table>
       <button (click)="createBooking()" class="btn btn-primary">Create booking</button>
+</div>
 </div>
 

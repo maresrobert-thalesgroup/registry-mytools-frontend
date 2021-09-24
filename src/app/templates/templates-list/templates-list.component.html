@@ -1,9 +1,9 @@
 
-<div class="panel panel-primary">
+<div *ngIf="templates2 | async" class="panel panel-primary">
     <div class="panel-heading">
       <h1>Template List</h1>
     </div>
-    <div *ngIf="filtersLoaded">
+    <div >
     <div class="panel-body">
       <table id="datable-example" class="display" cellspacing="10" width="100%">
 
@@ -22,7 +22,7 @@
 
         <tbody>     
 
-       <tr *ngFor="let template of templates">  
+       <tr *ngFor="let template of templates2 | async ">  
             <td>{{template.requestBy}}</td>
             <td>{{template.requestFor}}</td>
             <td>{{template.gbu}}</td>

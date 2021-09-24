@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,11 @@ export class HomeComponent implements OnInit {
   selected:String = "All";
   selectedSort:String = "Oldest to Newest"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router:Router) {
+
+    if(sessionStorage.getItem('role') === "ROLE_ADMIN")
+    this.router.navigate(["/administration"]);
+   }
 
   ngOnInit(): void {
     this.httpOptions = {

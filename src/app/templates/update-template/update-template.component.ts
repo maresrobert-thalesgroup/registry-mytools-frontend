@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -40,7 +41,7 @@ export class UpdateTemplateComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient) {
+  constructor(private router: Router, private templateService: TemplateService, private route: ActivatedRoute, private httpClient: HttpClient, private snackBar: MatSnackBar) {
 
     this.form = new FormGroup({
       'kitNeeded': new FormControl('', Validators.required),
@@ -168,7 +169,7 @@ export class UpdateTemplateComponent implements OnInit {
     console.log(this.templateRequest);
     console.log(this.template.id);
     this.templateService.updateTemplate(this.template.id, this.templateRequest).subscribe(
-      data => console.log(data), error => console.error());
+      data => console.log(data), error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
     this.router.navigate(['/navbartemplates/templateslist']);
     //console.log(this.template);
   }

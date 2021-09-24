@@ -8,6 +8,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { TemplateRequest } from 'src/app/model/template_request.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-template',
@@ -42,7 +43,7 @@ export class CreateTemplateComponent implements OnInit {
   team:any;
   
 
-  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient) {
+  constructor(private templateService: TemplateService, private router: Router, private httpClient: HttpClient, private snackBar:MatSnackBar) {
     
     this.form=new FormGroup({
       'kitNeeded': new FormControl('',Validators.required),
@@ -95,7 +96,7 @@ export class CreateTemplateComponent implements OnInit {
     console.log(this.template);
 
     this.templateService.createTemplate(this.template).subscribe(
-      data => console.log(data), error => console.log(error));
+      data => console.log(data), error => this.snackBar.open(error.error.message,"ok",{duration:3000}));
     this.template = new TemplateRequest();
     this.router.navigate(['/navbartemplates/templateslist']);
 
@@ -135,15 +136,17 @@ export class CreateTemplateComponent implements OnInit {
           }
           this.employeeDropdownList = tempList;
           console.log(this.employeeDropdownList);
+          this.employeeDropdownList=this.employeeDropdownList.filter((b:any)=> b.item_text !== sessionStorage.getItem("email")+"");
         })
       }
-      sessionStorage.setItem("id",this.userProfile.id);
     })
 
     if (this.role==='ROLE_USER'|| this.personalTemplate==true ) {
       this.form.controls['requestFor'].clearValidators();
       this.form.controls['requestFor'].updateValueAndValidity();
     }
+
+    
   }
 
   onItemSelect(item: any) {

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { TemplateService } from '../service/template.service';
@@ -33,9 +34,12 @@ export class BookingComponent implements OnInit {
   userData: any;
   templateId:any;
   template:any;
-  form:FormGroup 
+  form:FormGroup;
+  userId:number;
+  templates:any;
+  selectedTemplate:any;
 
-  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute) {
+  constructor(private templateService:TemplateService, private httpClient: HttpClient,private route: ActivatedRoute, private snackBar:MatSnackBar) {
 
     this.form=new FormGroup({
       'kitNeeded': new FormControl('',Validators.required),
@@ -51,6 +55,15 @@ export class BookingComponent implements OnInit {
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       })
     };
+
+    this.userId= Number(sessionStorage.getItem("id"));
+
+    console.log(this.userId);
+    this.templateService.getTemplatesByUserId(this.userId).subscribe(data=>
+      {console.log(data);
+      this.templates=data;
+      });
+    
 
     let packageEmail = { "email": sessionStorage.getItem('email') }
     this.httpClient.post<any>("http://localhost:8080/api/v1/profile", packageEmail, this.httpOptions).subscribe(data => {
@@ -156,6 +169,33 @@ export class BookingComponent implements OnInit {
 
   get f (){return this.form.controls}
 
+  applyTemplate(){
+
+    this.selectedItems = [];
+
+    for (let i = 0; i < this.selectedTemplate.floorAccess.length; i++){ 
+      for (let j = 0; j < this.dropdownList.length; j++) {
+        if(this.selectedTemplate.floorAccess[i].toString() === this.dropdownList[j].item_text)
+          this.selectedItems.push(this.dropdownList[j]);
+      }
+    }
+    console.log(this.selectedItems);
+
+    this.kitNeeded=this.selectedTemplate.kitRequired;
+
+    if (this.role === 'ROLE_MANAGER'){
+      
+      this.selectedEmployees = [];
+    
+      for (let i = 0; i < this.employeeDropdownList.length; i++) {
+        if(this.selectedTemplate.requestFor === this.employeeDropdownList[i].item_text)
+          this.selectedEmployees.push(this.employeeDropdownList[i]);
+      }
+      console.log(this.selectedEmployees);
+    }
+    
+  } 
+
   done() {
     let floors: number[] = [];
     for (let i of this.selectedItems) {
@@ -174,6 +214,7 @@ export class BookingComponent implements OnInit {
     this.httpClient.post("http://localhost:8080/api/v1/booking", bookingPackage, this.httpOptions).subscribe(data => {
       console.log(data);
     })
+    this.snackBar.open("Booking sent succesfully! View in my bookings","ok",{duration:3000});
   }
 }
 

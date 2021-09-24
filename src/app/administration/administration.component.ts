@@ -11,6 +11,7 @@ export class AdministrationComponent implements OnInit {
 
   httpOptions:any;
   bookingList:any = [];
+  isLoaded:boolean=false;
 
   constructor(private httpClient:HttpClient, private router:Router) { }
 
@@ -25,9 +26,14 @@ export class AdministrationComponent implements OnInit {
       )
     };
 
+    this.getAllBookings();
+  }
+
+  getAllBookings(){
     this.httpClient.get("http://localhost:8080/api/v1/booking",this.httpOptions).subscribe(data => {
       this.bookingList = data;
       console.log(this.bookingList);
+      this.isLoaded=true;
     })
   }
 
@@ -48,7 +54,8 @@ export class AdministrationComponent implements OnInit {
     console.log(id);
     this.httpClient.delete("http://localhost:8080/api/v1/booking/delete/" + id,this.httpOptions).subscribe(data=>{
       console.log(data);
-      this.bookingList = this.bookingList.filter((b:any)=>b.id !== id);
+      //this.bookingList = this.bookingList.filter((b:any)=>b.id !== id);
+      this.getAllBookings();
     })
   }
   

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscribable, Subscription } from 'rxjs';
 import { ApiResponse } from 'src/app/model/api.response';
 import { TemplateService } from 'src/app/service/template.service';
 
@@ -14,32 +14,46 @@ export class TemplatesListComponent implements OnInit {
   //templates:Observable<ApiResponse>;
   templates:any;
   floors: String[] = [];
-  filtersLoaded: Promise<boolean> = Promise.resolve(false);
   userId:number;
+  dataLoaded:boolean=false;
+  templates2:Observable<any>;
+  sub:Subscription;
 
-  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute) { }
+  constructor(private templateService:TemplateService, private router:Router, private route:ActivatedRoute) {
+
+   }
 
   ngOnInit(): void {
+
     this.userId= Number(sessionStorage.getItem("id"));
-    this.templateService.getTemplatesByUserId(this.userId).subscribe(
-      data=>{console.log(data);
-      this.templates=data;
-      for (let i = 0; i < this.templates.length; i++) {
-        this.templates[i].floorAccess = this.templates[i].floorAccess as String[]; //use i instead of 0
-      }
-      this.filtersLoaded = Promise.resolve(true);
 
-      this.templateService.getTemplateById(18).subscribe( 
-        data=>{console.log(data);}
-      )
+    this.templates2=this.templateService.getTemplatesByUserId(this.userId);
 
-
-  },
-  error=>  console.error(error));
-    $(function(){
-      $('#datatable-example').DataTable();
-    });
+    console.log(this.userId);
+     this.sub=this.templates2.subscribe(
+       data=>{console.log(data);
+       //this.templatesObs.
+       //this.dataLoaded=true;
+     
+   },
+   error=>  console.error(error));
+     $(function(){
+       $('#datatable-example').DataTable();
+     });
   }
+/*
+  ngOnChanges(changes: SimpleChanges) {
+    // only run when property "data" changed
+    if (changes['templates']) {
+        //  This is always outputting my original insights, not the filtered list
+        console.log(this.templates)
+    }
+}
+*/
+
+   ngOnDestroy(){
+    this.sub.unsubscribe();
+   }
 
   deleteTemplate(id:number){
     console.log(id);
